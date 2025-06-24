@@ -1,16 +1,3 @@
-from pydantic import (
-    BaseModel,
-    Field,
-    HttpUrl,
-    field_validator,
-    ValidationInfo,
-    model_validator,
-)
-from typing import Optional, List, Union
-from datetime import datetime
-from enum import Enum
-
-
 # ======================================================================
 # Step 1: Simple class for a Member
 #
@@ -20,10 +7,8 @@ from enum import Enum
 #   - name: A string representing the name of the member.
 #   - email: A string representing the email address of the member.
 # ======================================================================
-class Member(BaseModel):
-    id: int
-    name: str
-    email: str
+
+# TODO
 
 
 # ======================================================================
@@ -46,14 +31,8 @@ class Member(BaseModel):
 #   - is_active: A boolean indicating whether the partnership is active.
 #     Field with a default value of True.
 # ======================================================================
-class PartnerCompany(BaseModel):
-    name: str = Field(description="Name of the partner company")
-    website: Optional[HttpUrl] = Field(default=None, description="Official website URL")
-    sector: str = Field(description="Business sector of the company")
-    employee_count: int = Field(gt=0, description="Number of employees (must be > 0)")
-    is_active: bool = Field(
-        default=True, description="Whether the partnership is active"
-    )
+
+# TODO class PartnerCompany(BaseModel):
 
 
 # ======================================================================
@@ -74,28 +53,14 @@ class PartnerCompany(BaseModel):
 #   - name_must_not_contain_digits: Validates that the name does not contain any digits.
 #   - salary_must_be_reasonable: Validates that the salary is reasonable based on the employee's age (salary < age * 1000).
 # ======================================================================
-class Employee(BaseModel):
-    name: str = Field(description="Name of the employee")
-    age: int = Field(gt=18, description="Age of the employee")
-    salary: float = Field(
-        default=1400,
-        description="Salary of the employee (based arbitrarily on his age)",
-    )
 
-    @field_validator("name")
-    def name_must_not_contain_digits(cls, v):
-        """Validate that the name does not contain any digits."""
-        if any(char.isdigit() for char in v):
-            raise ValueError("Name must not contain numbers")
-        return v
+# TODO class Employee(BaseModel):
 
-    @field_validator("salary")
-    def salary_must_be_reasonable(cls, v, info: ValidationInfo):
-        """Validate that the salary is reasonable based on the employee's age."""
-        age = info.data.get("age")
-        if v < age * 1000:
-            raise ValueError("Salary is unrealistically low based on age")
-        return v
+
+# TODO @field_validator("name")
+
+
+# TODO @field_validator("salary")
 
 
 # ======================================================================
@@ -118,21 +83,11 @@ class Employee(BaseModel):
 # Validators:
 #   - check_dates: Validates that the end time is after the start time.
 # ======================================================================
-class Event(BaseModel):
-    name: str = Field(description="Name of the event")
-    registered_count: int = Field(ge=0, description="Number of registered attendees")
-    location: str = Field(description="Location where the event will take place")
-    start_time: datetime = Field(description="Start time of the event")
-    end_time: datetime = Field(description="End time of the event")
 
-    @model_validator(mode="before")
-    def check_dates(cls, values):
-        """Validate that the end time is after the start time."""
-        start = values.get("start_time")
-        end = values.get("end_time")
-        if end <= start:
-            raise ValueError("End time must be after start time")
-        return values
+# TODO class Event(BaseModel):
+
+
+# TODO @model_validator(mode="before")
 
 
 # ======================================================================
@@ -150,17 +105,8 @@ class Event(BaseModel):
 #   - partner_companies: A list of PartnerCompany objects representing the list of partner companies, defaults to an empty list.
 #   - events: An optional list of Event objects representing the list of club events, defaults to None.
 # ======================================================================
-class Club(BaseModel):
-    name: str = Field(description="Name of the club")
-    members: List[Member] = Field(
-        default_factory=list, description="List of club members"
-    )
-    partner_companies: List[PartnerCompany] = Field(
-        default_factory=list, description="List of partner companies"
-    )
-    events: Optional[List[Event]] = Field(
-        default=None, description="List of club events"
-    )
+
+# TODO class Club(BaseModel):
 
 
 # ======================================================================
@@ -189,27 +135,14 @@ class Club(BaseModel):
 #   - department: A Department enum representing the department to which the intern is assigned.
 #                 This field defaults to the Data Science department.
 # ======================================================================
-class EducationLevel(Enum):
-    BACHELOR = "bachelor"
-    MASTER = "master"
-    PHD = "phd"
-    HIGH_SCHOOL = "high_school"
+
+# TODO class EducationLevel(Enum):
 
 
-class Department(Enum):
-    AI = "Artificial Intelligence"
-    DATA = "Data Science"
-    COM = "Software Development"
-    HR = "Human Resources"
+# TODO class Department(Enum):
 
 
-class Intern(BaseModel):
-    name: str = Field(description="Name of the intern")
-    age: int = Field(gt=16, description="Age of the intern")
-    education_level: EducationLevel = Field(description="Education level of the intern")
-    department: Department = Field(
-        default=Department.DATA, description="Assigned department"
-    )
+# TODO class Intern(BaseModel):
 
 
 # ======================================================================
@@ -235,21 +168,8 @@ class Intern(BaseModel):
 #       representing a link or internal reference to the project documentation.
 #
 # ======================================================================
-class Project(BaseModel):
-    name: str = Field(description="Name of the project")
-    client: str = Field(description="Client associated with the project")
-    assigned_to: Union[Employee, Intern] = Field(
-        description="Person assigned to the project"
-    )
-    deadline: Optional[datetime] = Field(
-        default=None, description="Deadline of the project"
-    )
-    budget_euros: Optional[float] = Field(
-        default=None, gt=0, description="Optional budget in euros (must be positive)"
-    )
-    documentation_link: Union[HttpUrl, str] = Field(
-        description="URL or internal reference to documentation"
-    )
+
+# TODO class Project(BaseModel):
 
 
 # ======================================================================
@@ -287,44 +207,17 @@ class Project(BaseModel):
 #   - validate_due_date_and_priority: Ensures that the due date is not in the past
 #     and that DOCUMENTATION tasks do not have HIGH priority.
 # ======================================================================
-class Priority(str, Enum):
-    LOW = "low"
-    MEDIUM = "medium"
-    HIGH = "high"
+
+# TODO class Priority(str, Enum):
 
 
-class TaskType(str, Enum):
-    FEATURE = "feature"
-    BUGFIX = "bugfix"
-    DOCUMENTATION = "documentation"
-    RESEARCH = "research"
+# TODO class TaskType(str, Enum):
 
 
-class Task(BaseModel):
-    title: str = Field(min_length=5, description="Title must be descriptive enough")
-    task_type: TaskType = Field(description="Type of the task")
-    assigned_to: Union[Employee, Intern] = Field(
-        description="Person assigned to the task"
-    )
-    priority: Priority = Field(default=Priority.MEDIUM)
-    due_date: Optional[datetime] = Field(default=None, description="Task deadline")
-    is_completed: bool = Field(default=False)
-    project: Project = Field(description="The project to which this task belongs")
+# TODO class Task(BaseModel):
 
-    @field_validator("title")
-    def title_must_not_be_generic(cls, v):
-        """Validates that the task title is descriptive and not a generic placeholder."""
-        if v.lower() in ["task", "todo", "fix"]:
-            raise ValueError(
-                "Title must be more descriptive than a generic placeholder."
-            )
-        return v
 
-    @model_validator(mode="after")
-    def validate_due_date_and_priority(self):
-        """Validates the due date and priority logic of the task."""
-        if self.due_date and self.due_date < datetime.now():
-            raise ValueError("Due date cannot be in the past.")
-        if self.priority == Priority.HIGH and self.task_type == TaskType.DOCUMENTATION:
-            raise ValueError("Documentation tasks should not have high priority.")
-        return self
+# TODO @field_validator("title")
+
+
+# TODO @model_validator(mode="after")
