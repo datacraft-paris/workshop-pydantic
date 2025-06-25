@@ -1,5 +1,5 @@
 try:
-    from easy import (
+    from intermediate import (
         Member,
         PartnerCompany,
         Employee,
