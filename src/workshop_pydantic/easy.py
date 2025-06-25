@@ -15,8 +15,9 @@ from enum import Enum
 #########################################################################
 #######                                                           #######
 #######     This file contains placeholders marked as either:     #######
-#######      - # 🛠️ TODO comments...                              #######
-#######      - or inline markers like "🛠️ TODO: complete here"    #######
+#######      - # 🛠️ TODO comments                                 #######
+#######      - inline markers like "🛠️ TODO: complete here"       #######
+#######      - or Hints to follow...                              #######
 #######                                                           #######
 #########################################################################
 #########################################################################
@@ -33,7 +34,8 @@ from enum import Enum
 # ======================================================================
 class Member(BaseModel):
     id: int
-    # 🛠️ TODO: Add the 'name' and 'email' attributes here
+    # TODO: Add the 'name' attribute with type str
+    # TODO: Add the 'email' attribute with type str
     pass
 
 
@@ -62,7 +64,13 @@ class PartnerCompany(BaseModel):
     website: Optional[HttpUrl] = Field(
         default="🛠️ TODO: complete here", description="🛠️ TODO: complete here"
     )
-    # 🛠️ TODO: Complete 'website' and add the 'sector', 'employee_count', and 'is_active' attributes here
+    # TODO: Add the 'sector' attribute with type str and a description
+    employee_count: int = Field(
+        "🛠️ TODO: complete here", description="Number of employees"
+    )
+    is_active: bool = Field(
+        default="🛠️ TODO: complete here", description="Whether the partnership is active"
+    )
     pass
 
 
@@ -86,15 +94,19 @@ class PartnerCompany(BaseModel):
 # ======================================================================
 class Employee(BaseModel):
     name: str = Field(description="Name of the employee")
-    age: int = Field("🛠️ TODO: complete here")
+    age: int = Field(
+        "🛠️ TODO: complete here with a constraint", description="Age of the employee"
+    )
     salary: float = Field(
-        "🛠️ TODO: complete here",
+        default="🛠️ TODO: complete here",
         description="Salary of the employee (based arbitrarily on his age)",
     )
 
     @field_validator("name")
     def name_must_not_contain_digits(cls, v):
+        """Validate that the name does not contain any digits."""
         # 🛠️ TODO: Implement the validator to ensure the name does not contain digits
+        # Hint: Use the .isdigit() method
         return v
 
     @field_validator("salary")
@@ -102,6 +114,7 @@ class Employee(BaseModel):
         """Validate that the salary is reasonable based on the employee's age."""
         age = info.data.get("age")
         # 🛠️ TODO: Implement this validator properly
+        # Hint: Use an if statement to compare salary and age * 1000
         return v
 
 
@@ -127,16 +140,17 @@ class Employee(BaseModel):
 # ======================================================================
 class Event(BaseModel):
     name: str = Field(description="Name of the event")
-    "🛠️ TODO: complete here"
+    # 🛠️ TODO: Add the 'registered_count' attribute with type int and a constraint that it must be greater than or equal to 0
     location: str = Field(description="Location where the event will take place")
     start_time: datetime = Field(description="Start time of the event")
-    "🛠️ TODO: complete here"
+    # 🛠️ TODO: Add the 'end_time' attribute with type datetime
 
     @model_validator(mode="before")
     def check_dates(cls, values):
         """Validate that the end time is after the start time."""
         start = values.get("🛠️ TODO: complete here")
         # 🛠️ TODO: Implement the validator to ensure the end time is after the start time
+        # Hint: Use an if statement to compare start and end
         return values
 
 
@@ -160,8 +174,8 @@ class Club(BaseModel):
     members: List[Member] = Field(
         default_factory=list, description="List of club members"
     )
-    # 🛠️ TODO: Add the 'partner_companies' and 'events' attributes here
-    pass
+    # TODO: Add the 'partner_companies' attribute with type List[PartnerCompany] and a default_factory of list
+    # TODO: Add the 'events' attribute with type Optional[List[Event]]
 
 
 # ======================================================================
@@ -190,19 +204,21 @@ class Club(BaseModel):
 #   - department: A Department enum representing the department to which the intern is assigned.
 #                 This field defaults to the Data Science department.
 # ======================================================================
+class EducationLevel(Enum):
+    BACHELOR = "bachelor"
+    MASTER = "master"
+    # TODO: Add more education levels like PHD, HIGH_SCHOOL
+
+
 class Department(Enum):
     AI = "Artificial Intelligence"
-    # 🛠️ TODO: Define the Department enum values
-    pass
-
-
-# 🛠️ TODO: Define the enum class EducationLevel
+    # 🛠️ TODO: complete here, add more departments like DATA, COM, HR
 
 
 class Intern(BaseModel):
     name: str = Field(description="Name of the intern")
-    "🛠️ TODO: complete here"
-    "🛠️ TODO: complete here"
+    # 🛠️ TODO: Add the 'age' attribute with type int with gt constraint
+    # 🛠️ TODO: Add the 'education_level' attribute with type EducationLevel
     department: Department = Field(
         default="🛠️ TODO: complete here", description="Assigned department"
     )
@@ -234,13 +250,14 @@ class Intern(BaseModel):
 class Project(BaseModel):
     name: str = Field(description="Name of the project")
     client: str = Field(description="Client associated with the project")
-    assigned_to: Union[None, None] = Field(  # "🛠️ TODO: complete here"
-        description="Person assigned to the project"
-    )
+    # TODO: Add the 'assigned_to' attribute with type Union[Employee, Intern]
     deadline: Optional[datetime] = Field(
-        default=None, description="Deadline of the project"
+        default=None, description="Deadline for the project"
     )
-    # 🛠️ TODO: Add the 'budget_euros', and 'documentation_link' attributes here
+    # TODO: Add the 'budget_euros' attribute with type Optional[float] and constraints
+    documentation_link: Union[HttpUrl, str] = Field(
+        description="URL or internal reference to documentation"
+    )
     pass
 
 
@@ -281,29 +298,41 @@ class Project(BaseModel):
 # ======================================================================
 class Priority(str, Enum):
     LOW = "low"
-    # 🛠️ TODO: Define the Priority enum values
+    # 🛠️ TODO: complete here, add more priority levels like MEDIUM and HIGH
     pass
 
 
-# 🛠️ TODO: Define the enum class TaskType
+class TaskType(str, Enum):
+    FEATURE = "feature"
+    # 🛠️ TODO: complete here, add more task types like BUGFIX, DOCUMENTATION, RESEARCH
+    pass
 
 
 class Task(BaseModel):
     title: str = Field(
         "🛠️ TODO: complete here", description="Title must be descriptive enough"
     )
-    "🛠️ TODO: complete here"
-    "🛠️ TODO: complete here"
-    priority: Priority = Field("🛠️ TODO: complete here")
-    "🛠️ TODO: complete here"
-    is_completed: bool = Field("🛠️ TODO: complete here")
+    # 🛠️ TODO: Add the 'task_type' attribute with type TaskType
+    # 🛠️ TODO: Add the 'assigned_to' attribute with type Union[Employee, Intern]
+    priority: Priority = Field(
+        "🛠️ TODO: complete here with a def default value of MEDIUM"
+    )
+    # 🛠️ TODO: Add the 'due_date' attribute with type Optional[datetime] and default   None
+    is_completed: bool = Field("🛠️ TODO: complete here  with a default value of False")
     project: Project = Field(description="The project to which this task belongs")
 
     @field_validator("title")
     def title_must_not_be_generic(cls, v):
         """Validates that the task title is descriptive and not a generic placeholder."""
         # 🛠️ TODO: Implement the validator to ensure the title is descriptive
+        # Hint: Use the v.lower() method to convert the title to lowercase and check if it contains 'task', 'todo', or 'fix'
         return v
 
-
-# 🛠️ TODO: Implement the model_validator to ensure the due date and priority logic of the task
+    # 🛠️ TODO: Implement the model_validator to ensure the due date and priority logic of the task
+    @model_validator(mode="after")
+    def validate_due_date_and_priority(cls, values):
+        """Validates that the due date is not in the past and that DOCUMENTATION tasks do not have HIGH priority."""
+        # 🛠️ TODO: Implement the model validator to ensure the due date and priority logic of the task
+        # Hint: Use an if statement to check if the due date is in the past
+        # Hint: Use an if statement to check if the task type is DOCUMENTATION and if the priority is HIGH
+        return values
