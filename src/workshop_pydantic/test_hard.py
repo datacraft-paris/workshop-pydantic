@@ -1,4 +1,4 @@
-from correction import (
+from hard import (
     Member,
     PartnerCompany,
     Employee,
