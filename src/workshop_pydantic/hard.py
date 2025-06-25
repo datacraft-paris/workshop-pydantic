@@ -1,3 +1,14 @@
+#########################################################################
+#########################################################################
+#######                                                           #######
+#######     This file contains placeholders marked as either:     #######
+#######      - # 🛠️ TODO comments...                              #######
+#######      - or inline markers like "🛠️ TODO: complete here"    #######
+#######                                                           #######
+#########################################################################
+#########################################################################
+
+
 # ======================================================================
 # Step 1: Simple class for a Member
 #
@@ -8,7 +19,7 @@
 #   - email: A string representing the email address of the member.
 # ======================================================================
 
-# TODO
+# 🛠️ TODO Simple class for a Member
 
 
 # ======================================================================
@@ -32,7 +43,7 @@
 #     Field with a default value of True.
 # ======================================================================
 
-# TODO class PartnerCompany(BaseModel):
+# 🛠️ TODO class PartnerCompany(BaseModel):
 
 
 # ======================================================================
@@ -54,13 +65,13 @@
 #   - salary_must_be_reasonable: Validates that the salary is reasonable based on the employee's age (salary < age * 1000).
 # ======================================================================
 
-# TODO class Employee(BaseModel):
+# 🛠️ TODO class Employee(BaseModel):
 
 
-# TODO @field_validator("name")
+# 🛠️ TODO @field_validator("name")
 
 
-# TODO @field_validator("salary")
+# 🛠️ TODO @field_validator("salary")
 
 
 # ======================================================================
@@ -84,10 +95,10 @@
 #   - check_dates: Validates that the end time is after the start time.
 # ======================================================================
 
-# TODO class Event(BaseModel):
+# 🛠️ TODO class Event(BaseModel):
 
 
-# TODO @model_validator(mode="before")
+# 🛠️ TODO @model_validator(mode="before")
 
 
 # ======================================================================
@@ -106,7 +117,7 @@
 #   - events: An optional list of Event objects representing the list of club events, defaults to None.
 # ======================================================================
 
-# TODO class Club(BaseModel):
+# 🛠️ TODO class Club(BaseModel):
 
 
 # ======================================================================
@@ -136,13 +147,13 @@
 #                 This field defaults to the Data Science department.
 # ======================================================================
 
-# TODO class EducationLevel(Enum):
+# 🛠️ TODO class EducationLevel(Enum):
 
 
-# TODO class Department(Enum):
+# 🛠️ TODO class Department(Enum):
 
 
-# TODO class Intern(BaseModel):
+# 🛠️ TODO class Intern(BaseModel):
 
 
 # ======================================================================
@@ -169,7 +180,7 @@
 #
 # ======================================================================
 
-# TODO class Project(BaseModel):
+# 🛠️ TODO class Project(BaseModel):
 
 
 # ======================================================================
@@ -208,16 +219,16 @@
 #     and that DOCUMENTATION tasks do not have HIGH priority.
 # ======================================================================
 
-# TODO class Priority(str, Enum):
+# 🛠️ TODO class Priority(str, Enum):
 
 
-# TODO class TaskType(str, Enum):
+# 🛠️ TODO class TaskType(str, Enum):
 
 
-# TODO class Task(BaseModel):
+# 🛠️ TODO class Task(BaseModel):
 
 
-# TODO @field_validator("title")
+# 🛠️ TODO @field_validator("title")
 
 
-# TODO @model_validator(mode="after")
+# 🛠️ TODO @model_validator(mode="after")
