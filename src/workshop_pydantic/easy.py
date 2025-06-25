@@ -281,7 +281,7 @@ class Project(BaseModel):
 #
 # Attributes:
 #   - title: A string representing the title of the task. It must be at least
-#     5 characters long to ensure it is descriptive enough.
+#     3 characters long to ensure it is descriptive enough.
 #   - task_type: A TaskType enumeration representing the type of task.
 #   - assigned_to: A union type that can either be an Employee or an Intern,
 #     representing the person to whom the task is assigned.
