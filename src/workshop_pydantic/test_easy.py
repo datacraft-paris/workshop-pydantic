@@ -1,17 +1,21 @@
-from correction import (
-    Member,
-    PartnerCompany,
-    Employee,
-    Event,
-    Club,
-    Intern,
-    EducationLevel,
-    Department,
-    Project,
-    Priority,
-    TaskType,
-    Task,
-)
+try:
+    from easy import (
+        Member,
+        PartnerCompany,
+        Employee,
+        Event,
+        Club,
+        Intern,
+        EducationLevel,
+        Department,
+        Project,
+        Priority,
+        TaskType,
+        Task,
+    )
+except ImportError:
+    pass
+
 from datetime import datetime, timedelta
 from pydantic import ValidationError
 
