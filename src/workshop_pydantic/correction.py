@@ -272,7 +272,7 @@ class Project(BaseModel):
 #
 # Attributes:
 #   - title: A string representing the title of the task. It must be at least
-#     5 characters long to ensure it is descriptive enough.
+#     3 characters long to ensure it is descriptive enough.
 #   - task_type: A TaskType enumeration representing the type of task.
 #   - assigned_to: A union type that can either be an Employee or an Intern,
 #     representing the person to whom the task is assigned.
@@ -301,7 +301,7 @@ class TaskType(str, Enum):
 
 
 class Task(BaseModel):
-    title: str = Field(min_length=5, description="Title must be descriptive enough")
+    title: str = Field(min_length=3, description="Title must be descriptive enough")
     task_type: TaskType = Field(description="Type of the task")
     assigned_to: Union[Employee, Intern] = Field(
         description="Person assigned to the task"

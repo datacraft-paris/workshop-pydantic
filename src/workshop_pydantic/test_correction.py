@@ -1,17 +1,21 @@
-from correction import (
-    Member,
-    PartnerCompany,
-    Employee,
-    Event,
-    Club,
-    Intern,
-    EducationLevel,
-    Department,
-    Project,
-    Priority,
-    TaskType,
-    Task,
-)
+try:
+    from correction import (
+        Member,
+        PartnerCompany,
+        Employee,
+        Event,
+        Club,
+        Intern,
+        EducationLevel,
+        Department,
+        Project,
+        Priority,
+        TaskType,
+        Task,
+    )
+except ImportError:
+    pass
+
 from datetime import datetime, timedelta
 from pydantic import ValidationError
 
@@ -226,9 +230,49 @@ def test_club():
 
 def test_club_with_empty_lists():
     """Test the creation of a Club instance with empty lists of members and partner companies."""
-    club = Club(name="EmptyClub", members=[], partner_companies=[], events=None)
-    print(club)
+    Club(name="EmptyClub", members=[], partner_companies=[], events=None)
     return True
+
+
+def test_club_with_event_list():
+    """Test the creation of a Club instance with a list of events."""
+    try:
+        members = [
+            Member(id=1, name="Paul", email="paul@example.com"),
+        ]
+
+        partners = [
+            PartnerCompany(
+                name="DataCorp",
+                website=None,
+                sector="Data Science",
+                employee_count=50,
+                is_active=False,
+            )
+        ]
+
+        events = [
+            Event(
+                name="Hackathon",
+                start_time=datetime.now(),
+                end_time=datetime.now() + timedelta(hours=8),
+                location="Remote",
+                registered_count=20,
+            )
+        ]
+
+        club = Club(
+            name="EventfulClub",
+            members=members,
+            partner_companies=partners,
+            events=events,  # Setting events to a list of Event objects
+        )
+
+        print("Club with event list created successfully:", club)
+        return True
+    except Exception as e:
+        print(f"test_club_with_event_list failed: {e}")
+        return False
 
 
 # ======================================================================
@@ -311,6 +355,69 @@ def test_project_with_intern():
     return True
 
 
+def test_project_with_positive_budget():
+    """Test the creation of a Project instance with a positive budget."""
+    try:
+        emp = Employee(name="Alice", age=28, salary=45000)
+        project = Project(
+            name="AI Optimizer",
+            client="OpenAI",
+            assigned_to=emp,
+            budget_euros=100000.0,  # Positive budget
+            documentation_link="https://docs.openai.com/project",
+        )
+        print("Project with positive budget created successfully:", project)
+        return True
+    except Exception as e:
+        print(f"test_project_with_positive_budget failed: {e}")
+        return False
+
+
+def test_project_with_negative_budget():
+    """Test the validation of a Project with a negative budget."""
+    try:
+        emp = Employee(name="Alice", age=28, salary=45000)
+        Project(
+            name="AI Optimizer",
+            client="OpenAI",
+            assigned_to=emp,
+            budget_euros=-100000.0,  # Negative budget
+            documentation_link="https://docs.openai.com/project",
+        )
+        print("test_project_with_negative_budget failed: no error raised")
+        return False
+    except ValidationError as e:
+        print(f"test_project_with_negative_budget caught error as expected: {e}")
+        return True
+
+
+def test_project_with_string_documentation_link():
+    """Test the creation of a Project instance with a string as documentation link."""
+    try:
+        emp = Employee(name="Alice", age=28, salary=45000)
+        documentation_link = "Internal reference to project docs"
+        project = Project(
+            name="AI Optimizer",
+            client="OpenAI",
+            assigned_to=emp,
+            documentation_link=documentation_link,  # String as documentation link
+        )
+
+        # Vérifie que l'attribut documentation_link existe et a la bonne valeur
+        assert hasattr(
+            project, "documentation_link"
+        ), "Project instance has no attribute 'documentation_link'"
+        assert (
+            project.documentation_link == documentation_link
+        ), f"Expected documentation_link to be '{documentation_link}', but got '{project.documentation_link}'"
+
+        print("Project with string documentation link created successfully:", project)
+        return True
+    except Exception as e:
+        print(f"test_project_with_string_documentation_link failed: {e}")
+        return False
+
+
 # ======================================================================
 # Step 8: Test for Task class
 # ======================================================================
@@ -335,6 +442,44 @@ def test_valid_task():
     )
     print("Valid task created successfully:", task)
     return True
+
+
+def test_task_title_validation():
+    """Test that a generic task title raises a validation error."""
+    try:
+        emp = Employee(name="Alice", age=30, salary=45000)
+        project = Project(
+            name="AI Optimizer",
+            client="OpenAI",
+            assigned_to=emp,
+            deadline=datetime.now() + timedelta(days=30),
+            budget_euros=100000.0,
+            documentation_link="https://docs.openai.com/project",
+        )
+
+        # Tentative de création d'une tâche avec un titre générique de plus de 5 caractères
+        Task(
+            title="task",  # Ce titre a plus de 5 caractères mais est générique
+            task_type=TaskType.BUGFIX,
+            assigned_to=emp,
+            project=project,
+        )
+
+        # Si aucune exception n'est levée, le test échoue
+        print(
+            "test_task_title_validation failed: no validation error raised for generic title"
+        )
+        return False
+    except ValueError as e:
+        # Vérifie que le message d'erreur est celui attendu
+        if "Title must be more descriptive than a generic placeholder" in str(e):
+            print(
+                "test_task_title_validation passed: validation error correctly raised"
+            )
+            return True
+        else:
+            print(f"test_task_title_validation failed: unexpected error message - {e}")
+            return False
 
 
 def test_invalid_title():
@@ -447,12 +592,17 @@ tests = [
     test_event_with_zero_registered_count,
     test_club,
     test_club_with_empty_lists,
+    test_club_with_event_list,
     test_valid_intern,
     test_invalid_education_level,
     test_intern_with_default_department,
     test_project_with_employee,
     test_project_with_intern,
+    test_project_with_positive_budget,
+    test_project_with_negative_budget,
+    test_project_with_string_documentation_link,
     test_valid_task,
+    test_task_title_validation,
     test_invalid_title,
     test_invalid_due_date,
     test_invalid_priority_for_documentation,
@@ -463,9 +613,9 @@ all_tests_passed = True
 count = 0
 for test in tests:
     print(f"\n>>> {test.__name__} 🚀")
+    count += 1
     try:
         if test():
-            count += 1
             print(f"+++ {test.__name__} passed ✅ ({count}/{len(tests)})")
         else:
             print(f"!!! {test.__name__} failed ❌ ({count}/{len(tests)})")
