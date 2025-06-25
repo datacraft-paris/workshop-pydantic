@@ -17,6 +17,7 @@ from enum import Enum
 #######     This file contains placeholders marked as either:     #######
 #######      - # 🛠️ TODO comments...                              #######
 #######      - or inline markers like "🛠️ TODO: complete here"    #######
+#######      - or Hints to follow...                              #######
 #######                                                           #######
 #########################################################################
 #########################################################################
@@ -95,6 +96,7 @@ class Employee(BaseModel):
     @field_validator("name")
     def name_must_not_contain_digits(cls, v):
         # 🛠️ TODO: Implement the validator to ensure the name does not contain digits
+        # Hint: Use the .isdigit() method
         return v
 
     @field_validator("salary")
@@ -127,10 +129,10 @@ class Employee(BaseModel):
 # ======================================================================
 class Event(BaseModel):
     name: str = Field(description="Name of the event")
-    "🛠️ TODO: complete here"
+    # 🛠️ TODO: complete here
     location: str = Field(description="Location where the event will take place")
     start_time: datetime = Field(description="Start time of the event")
-    "🛠️ TODO: complete here"
+    # 🛠️ TODO: complete here
 
     @model_validator(mode="before")
     def check_dates(cls, values):
@@ -201,8 +203,8 @@ class Department(Enum):
 
 class Intern(BaseModel):
     name: str = Field(description="Name of the intern")
-    "🛠️ TODO: complete here"
-    "🛠️ TODO: complete here"
+    # 🛠️ TODO: complete here
+    # 🛠️ TODO: complete here
     department: Department = Field(
         default="🛠️ TODO: complete here", description="Assigned department"
     )
@@ -292,10 +294,10 @@ class Task(BaseModel):
     title: str = Field(
         "🛠️ TODO: complete here", description="Title must be descriptive enough"
     )
-    "🛠️ TODO: complete here"
-    "🛠️ TODO: complete here"
+    # 🛠️ TODO: complete here
+    # 🛠️ TODO: complete here
     priority: Priority = Field("🛠️ TODO: complete here")
-    "🛠️ TODO: complete here"
+    # 🛠️ TODO: complete here
     is_completed: bool = Field("🛠️ TODO: complete here")
     project: Project = Field(description="The project to which this task belongs")
 
@@ -303,6 +305,7 @@ class Task(BaseModel):
     def title_must_not_be_generic(cls, v):
         """Validates that the task title is descriptive and not a generic placeholder."""
         # 🛠️ TODO: Implement the validator to ensure the title is descriptive
+        # Hint: Use the v.lower() method to convert the title to lowercase before comparing
         return v
 
 
