@@ -33,6 +33,17 @@ def test_member():
     return True
 
 
+def test_member_with_valid_email():
+    """Test the creation of a Member instance with a valid email."""
+    try:
+        member = Member(id=1, name="Paul", email="paul@example.com")
+        print("Valid Member created successfully:", member)
+        return True
+    except Exception as e:
+        print(f"test_member_with_valid_email failed: {e}")
+        return False
+
+
 # ======================================================================
 # Step 2: Test for PartnerCompany class
 # ======================================================================
@@ -47,6 +58,27 @@ def test_partner_company():
     )
     print(company)
     return True
+
+
+def test_partner_company_with_invalid_employee_count():
+    """Test the validation of a PartnerCompany with an invalid employee count."""
+    try:
+        PartnerCompany(
+            name="OpenAI",
+            website="https://openai.com",
+            sector="Artificial Intelligence",
+            employee_count=0,
+            is_active=True,
+        )
+        print(
+            "test_partner_company_with_invalid_employee_count failed: no error raised"
+        )
+        return False
+    except ValidationError as e:
+        print(
+            f"test_partner_company_with_invalid_employee_count caught error as expected: {e}"
+        )
+        return True
 
 
 # ======================================================================
@@ -79,6 +111,12 @@ def test_invalid_salary():
     except ValidationError as e:
         print(f"test_invalid_salary caught error as expected: {e}")
         return True
+
+
+def test_employee_with_minimum_age():
+    """Test the creation of an Employee instance with the minimum valid age."""
+    Employee(name="Bob", age=19, salary=20000)
+    return True
 
 
 # ======================================================================
@@ -116,6 +154,22 @@ def test_event_invalid_date_validation():
     except ValidationError as e:
         print(f"test_event_invalid_date_validation caught error as expected: {e}")
         return True
+
+
+def test_event_with_zero_registered_count():
+    """Test the creation of an Event instance with zero registered attendees."""
+    start = datetime.now()
+    end = start + timedelta(hours=2)
+
+    event = Event(
+        name="DataCraft Awards",
+        start_time=start,
+        end_time=end,
+        location="Paris",
+        registered_count=0,
+    )
+    print(event)
+    return True
 
 
 # ======================================================================
@@ -170,6 +224,13 @@ def test_club():
     return True
 
 
+def test_club_with_empty_lists():
+    """Test the creation of a Club instance with empty lists of members and partner companies."""
+    club = Club(name="EmptyClub", members=[], partner_companies=[], events=None)
+    print(club)
+    return True
+
+
 # ======================================================================
 # Step 6: Test for Intern class
 # ======================================================================
@@ -201,6 +262,17 @@ def test_invalid_education_level():
         return True
 
 
+def test_intern_with_default_department():
+    """Test the creation of an Intern instance with the default department."""
+    intern = Intern(
+        name="Chloe",
+        age=22,
+        education_level=EducationLevel.MASTER,
+    )
+    print(intern)
+    return True
+
+
 # ======================================================================
 # Step 7: Test for Project class
 # ======================================================================
@@ -214,6 +286,26 @@ def test_project_with_employee():
         deadline=datetime.now(),
         budget_euros=100000.0,
         documentation_link="https://docs.openai.com/project",
+    )
+    print(project)
+    return True
+
+
+def test_project_with_intern():
+    """Test the creation of a Project instance assigned to an Intern."""
+    intern = Intern(
+        name="Chloe",
+        age=22,
+        education_level=EducationLevel.MASTER,
+        department=Department.DATA,
+    )
+    project = Project(
+        name="Data Analysis",
+        client="DataCorp",
+        assigned_to=intern,
+        deadline=datetime.now(),
+        budget_euros=50000.0,
+        documentation_link="https://docs.datacorp.com/project",
     )
     print(project)
     return True
@@ -317,25 +409,54 @@ def test_invalid_priority_for_documentation():
         return True
 
 
+def test_task_with_medium_priority():
+    """Test the creation of a Task instance with medium priority."""
+    emp = Employee(name="Alice", age=30, salary=40000)
+    project = Project(
+        name="AI Optimizer",
+        client="OpenAI",
+        assigned_to=emp,
+        deadline=datetime.now() + timedelta(days=30),
+        budget_euros=100000.0,
+        documentation_link="https://docs.openai.com/project",
+    )
+    Task(
+        title="Review code",
+        task_type=TaskType.RESEARCH,
+        assigned_to=emp,
+        priority=Priority.MEDIUM,
+        project=project,
+    )
+    return True
+
+
 # ======================================================================
 # Execute all tests
 # ======================================================================
 tests = [
     test_member,
+    test_member_with_valid_email,
     test_partner_company,
+    test_partner_company_with_invalid_employee_count,
     test_valid_employee,
     test_invalid_name,
     test_invalid_salary,
+    test_employee_with_minimum_age,
     test_event_date_validation,
     test_event_invalid_date_validation,
+    test_event_with_zero_registered_count,
     test_club,
+    test_club_with_empty_lists,
     test_valid_intern,
     test_invalid_education_level,
+    test_intern_with_default_department,
     test_project_with_employee,
+    test_project_with_intern,
     test_valid_task,
     test_invalid_title,
     test_invalid_due_date,
     test_invalid_priority_for_documentation,
+    test_task_with_medium_priority,
 ]
 
 all_tests_passed = True
