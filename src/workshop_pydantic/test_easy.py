@@ -30,17 +30,13 @@ To run the tests, simply run this file.
 # ======================================================================
 # Step 1: Test for Member class
 # ======================================================================
-def test_member():
-    """Test the creation of a Member instance."""
-    member = Member(id=1, name="Paul", email="paul@example.com")
-    print(member)
-    return True
-
-
 def test_member_with_valid_email():
     """Test the creation of a Member instance with a valid email."""
     try:
         member = Member(id=1, name="Paul", email="paul@example.com")
+        if member.email is None:
+            print("test_member_with_valid_email failed: email is None")
+            return False
         print("Valid Member created successfully:", member)
         return True
     except Exception as e:
@@ -51,19 +47,6 @@ def test_member_with_valid_email():
 # ======================================================================
 # Step 2: Test for PartnerCompany class
 # ======================================================================
-def test_partner_company():
-    """Test the creation of a PartnerCompany instance."""
-    company = PartnerCompany(
-        name="OpenAI",
-        website="https://openai.com",
-        sector="Artificial Intelligence",
-        employee_count=1000,
-        is_active=True,
-    )
-    print(company)
-    return True
-
-
 def test_partner_company_with_invalid_employee_count():
     """Test the validation of a PartnerCompany with an invalid employee count."""
     try:
@@ -88,13 +71,6 @@ def test_partner_company_with_invalid_employee_count():
 # ======================================================================
 # Step 3: Test for Employee class
 # ======================================================================
-def test_valid_employee():
-    """Test the creation of a valid Employee instance."""
-    emp = Employee(name="Alice", age=30, salary=40000)
-    print(emp)
-    return True
-
-
 def test_invalid_name():
     """Test the validation of an Employee name containing digits."""
     try:
@@ -126,22 +102,6 @@ def test_employee_with_minimum_age():
 # ======================================================================
 # Step 4: Test for Event class
 # ======================================================================
-def test_event_date_validation():
-    """Test the creation of an Event instance with valid dates."""
-    start = datetime.now()
-    end = start + timedelta(hours=2)
-
-    event = Event(
-        name="DataCraft Awards",
-        start_time=start,
-        end_time=end,
-        location="Paris",
-        registered_count=1500,
-    )
-    print(event)
-    return True
-
-
 def test_event_invalid_date_validation():
     """Test the validation of an Event with an invalid end date."""
     start = datetime.now()
@@ -440,6 +400,9 @@ def test_valid_task():
         due_date=datetime.now() + timedelta(days=10),
         project=project,
     )
+    if task.is_completed == None:
+        print("test_valid_task failed: task is completed")
+        return False
     print("Valid task created successfully:", task)
     return True
 
@@ -579,15 +542,11 @@ def test_task_with_medium_priority():
 # Execute all tests
 # ======================================================================
 tests = [
-    test_member,
     test_member_with_valid_email,
-    test_partner_company,
     test_partner_company_with_invalid_employee_count,
-    test_valid_employee,
     test_invalid_name,
     test_invalid_salary,
     test_employee_with_minimum_age,
-    test_event_date_validation,
     test_event_invalid_date_validation,
     test_event_with_zero_registered_count,
     test_club,
