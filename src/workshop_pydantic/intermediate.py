@@ -15,7 +15,9 @@ from enum import Enum
 # │   This file contains editable placeholders and TODOs:              │
 # │    - 🛠️ TODO comments 🛠️                                          │
 # │    - Inline: "🛠️ TODO: complete here 🛠️"                          │
-# │    - Hints and guides included                                     │
+# │                                                                    │
+# │    Run test_intermediate.py to check progress safely.              │
+# │    Do not edit tests — full check = compare with `correction`.     │
 # │                                                                    │
 # │ Review all TODOs before considering this file complete.            │
 # ╰────────────────────────────────────────────────────────────────────╯
