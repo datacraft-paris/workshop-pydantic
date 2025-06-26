@@ -73,4 +73,16 @@ Once you're familiar with the basics, you can move on to the other branches depe
 `git checkout correction`
 
 ---
+
+## Check Your Progress Without Spoilers
+
+As you go through each step of the exercise, you can **validate your work** by running the corresponding test file, such as `test_easy.py`, `test_intermediate.py`, or `test_hard.py`.
+
+These tests help confirm that you've met the key requirements of each stage **without revealing the full solution** — so you can stay focused and avoid spoilers from the `correction` branch.
+
+> 🔒 **Do not edit the test files.**
+> They are provided as-is to check the expected behavior at each step.
+> While they validate important criteria, they **don’t guarantee your code is perfect** — for a full validation, you should compare your work with the final solution in the `correction` branch.
+---
+
 *You're now all set — pick your branch, open the exercise, and start modeling with Pydantic !*
