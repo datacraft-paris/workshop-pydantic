@@ -23,7 +23,7 @@ Pydantic is widely used in modern Python projects such as FastAPI, data pipeline
 | `hard`         | Minimal guidance: only the exercise prompt is provided, for full autonomy. |
 | `correction`   | Full solution with explanations and good practices.                         |
 
-> 💡 Feel free to start with the `hard` branch if you're up for a challenge.
+> Feel free to start with the `hard` branch if you're up for a challenge.
 > If it gets tricky, switch to `intermediate` or `easy` for progressive hints.
 > Don't forget to refer to the mini course in `main` — it covers all the key concepts you need.
 
@@ -53,6 +53,16 @@ We recommend starting with the default branch (`main`) to go through the short t
 
 Once you're familiar with the basics, you can move on to the other branches depending on your desired challenge level.
 
+Each branch (`easy`, `intermediate`, `hard`) contains:
+
+- Four sequential model files: `model_1.py`, `model_2.py`, `model_3.py`, and `model_4.py`.
+  These represent progressive steps of the exercise and must be completed in order.
+  Each file builds upon the previous one — serving both as a **partial correction** and a **new step** that adds complexity.
+  To access the **complete final solution**, refer to the `correction` branch, which provides the full version of `model_4.py`.
+- Four corresponding test files: `test_model_1.py`, `test_model_2.py`, etc.
+  Each test file is dedicated to checking the behavior of its associated model step.
+
+The structure is the same across all branches to ensure consistency in learning progression.
 
 ### main branch
 
@@ -76,13 +86,13 @@ Once you're familiar with the basics, you can move on to the other branches depe
 
 ## Check Your Progress Without Spoilers
 
-As you go through each step of the exercise, you can **validate your work** by running the corresponding test file, such as `test_easy.py`, `test_intermediate.py`, or `test_hard.py`.
+As you complete each step (`model_1.py` to `model_4.py`), you can validate your implementation by running the corresponding test file for that step, such as `test_model_1.py`, `test_model_2.py`, etc., found in all branches.
 
-These tests help confirm that you've met the key requirements of each stage **without revealing the full solution** — so you can stay focused and avoid spoilers from the `correction` branch.
+These tests confirm that your code meets the core requirements of each step **without revealing the full solution**, allowing you to progress independently before consulting the `correction` branch.
 
-> 🔒 **Do not edit the test files.**
-> They are provided as-is to check the expected behavior at each step.
-> While they validate important criteria, they **don’t guarantee your code is perfect** — for a full validation, you should compare your work with the final solution in the `correction` branch.
+Do not modify the test files.
+They are designed to verify expected behavior at each stage. While they cover key elements, they do **not guarantee completeness or best practices** — for a full review, you can refer to the final implementation in the `correction` branch.
+
 ---
 
 *You're now all set — pick your branch, open the exercise, and start modeling with Pydantic !*
