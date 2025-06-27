@@ -59,7 +59,7 @@ Each branch (`easy`, `intermediate`, `hard`) contains:
   These represent progressive steps of the exercise and must be completed in order.
   Each file builds upon the previous one — serving both as a **partial correction** and a **new step** that adds complexity.
   To access the **complete final solution**, refer to the `correction` branch, which provides the full version of `model_4.py`.
-- Four corresponding test files: `test_model_1.py`, `test_model_2.py`, etc.
+- Four corresponding test files located in the `tests/` folder: `test_model_1.py`, `test_model_2.py`, etc.
   Each test file is dedicated to checking the behavior of its associated model step.
 
 The structure is the same across all branches to ensure consistency in learning progression.
@@ -86,7 +86,7 @@ The structure is the same across all branches to ensure consistency in learning 
 
 ## Check Your Progress Without Spoilers
 
-As you complete each step (`model_1.py` to `model_4.py`), you can validate your implementation by running the corresponding test file for that step, such as `test_model_1.py`, `test_model_2.py`, etc., found in all branches.
+As you complete each step (`model_1.py` to `model_4.py`), you can validate your implementation by running the corresponding test file located in the `tests/` folder, for that step, such as `test_model_1.py`, `test_model_2.py`, etc., found in all branches.
 
 These tests confirm that your code meets the core requirements of each step **without revealing the full solution**, allowing you to progress independently before consulting the `correction` branch.
 
