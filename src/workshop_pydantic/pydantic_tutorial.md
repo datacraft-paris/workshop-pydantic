@@ -136,6 +136,8 @@ count: int = Field(default=0)
 | `ge`        | Greater than or equal to           | `int`, `float`|
 | `lt`        | Less than                         | `int`, `float`|
 | `le`        | Less than or equal to              | `int`, `float`|
+| `multiple_of`  | Value must be a multiple of the given number | `int`, `float`|
+| `allow_inf_nan`| Allow 'inf', '-inf', and 'nan' values| `float`|
 
 ### 6. Nested Models
 
@@ -166,22 +168,86 @@ class Product(BaseModel):
     price: float
 
     @field_validator('name')
+    @classmethod
     def name_must_not_be_empty(cls, value):
         if not value.strip():
             raise ValueError('Name must not be empty')
         return value
 
     @field_validator('price')
+    @classmethod
     def price_must_be_positive(cls, value):
         if value <= 0:
             raise ValueError('Price must be greater than zero')
         return value
 ```
+#### Why use `@classmethod` with `@field_validator`?
+
+- Validators receive the **class** (`cls`) as the first argument, **not an instance**.
+- This allows validators to access class-level information or configuration if needed.
+- Without `@classmethod`, the method signature would expect an instance (`self`), which is not how Pydantic calls validators internally, causing errors.
+
+---
+> **For your information:**
+> Although `before`, `after`, `plain`, and `wrap` modes provide fine-grained control over validation timing and behavior, in most cases you won’t need to specify them explicitly when using `field_validator`.
+
+#### Using `before` and `after` hooks
+
+You can specify whether your validator runs **before** or **after** built-in validation using:
+
+```python
+@field_validator('price', before=True)
+@classmethod
+def preprocess_price(cls, value):
+    # modify value before core validation
+    return value
+
+@field_validator('price', after=True)
+@classmethod
+def postprocess_price(cls, value):
+    # validate or modify after core validation
+    return value
+```
+
+#### Validation modes: `plain` vs `wrap`
+
+- **plain**: Receives raw input and terminates validation immediately, skipping all further validation including Pydantic's internal checks.
+
+- **wrap**: Receives a handler function to control and customize the entire validation process, allowing code to run before or after standard validation or to short-circuit it.
 
 ### 8. Model-Level Validation (`@model_validator`)
 
-The `@field_validator` decorator in Pydantic v2 allows you to define custom validation logic for individual fields.
-It provides more powerful and flexible validation than what is possible with basic type hints or field definitions alone.
+The `@model_validator` decorator in Pydantic v2 allows you to perform validation on the entire model, instead of validating fields individually. This is useful when you need to validate combinations of fields, or apply logic that spans the whole model.
+
+**There are three types of model-level validators:**
+
+#### - Before Validator (`mode='before'`)
+Runs **before** the model is instantiated.
+Useful for preprocessing raw data.
+Receives the raw input and should return the cleaned data.
+
+```python
+from typing import Any
+from pydantic import BaseModel, model_validator
+
+class UserModel(BaseModel):
+    username: str
+
+    @model_validator(mode='before')
+    @classmethod
+    def check_card_number_not_present(cls, data: Any) -> Any:
+        if isinstance(data, dict) and 'card_number' in data:
+            raise ValueError("'card_number' should not be included")
+        return data
+```
+
+#### - After Validator (`mode='after'`)
+Runs **after** all fields are validated and the model is instantiated.
+Useful for post-initialization checks.
+Must return `self`.
+
+*Unlike `before` and `wrap` validators, `after` validators receive the model instance (`self`) rather than the class, so `@classmethod` is not needed.*
+
 
 ```python
 from pydantic import BaseModel, model_validator
@@ -196,6 +262,32 @@ class User(BaseModel):
         if self.password != self.confirm_password:
             raise ValueError('Passwords do not match')
         return self
+```
+
+#### - Wrap Validator (`mode='wrap'`)
+Most flexible.
+Allows you to run logic **before and after** internal validation.
+Must include a `handler` parameter which you can choose to call or not.
+
+*Less commonly used, but powerful for advanced scenarios like custom logging or dynamic correction.*
+
+```python
+import logging
+from typing import Any
+from typing_extensions import Self
+from pydantic import BaseModel, ModelWrapValidatorHandler, ValidationError, model_validator
+
+class UserModel(BaseModel):
+    username: str
+
+    @model_validator(mode='wrap')
+    @classmethod
+    def log_failed_validation(cls, data: Any, handler: ModelWrapValidatorHandler[Self]) -> Self:
+        try:
+            return handler(data)
+        except ValidationError:
+            logging.error('Model %s failed to validate with data %s', cls, data)
+            raise
 ```
 
 ### 9. Lists and Sub-models
@@ -246,7 +338,7 @@ Pydantic supports Python's built-in `Enum` types to define fields that must have
 from enum import Enum
 from pydantic import BaseModel
 
-class Status(Enum):
+class Status(str, Enum):
     PENDING = 'pending'
     COMPLETED = 'completed'
     FAILED = 'failed'
@@ -267,3 +359,7 @@ Up to this point, we have focused on Pydantic v2 and its enhancements.
 Pydantic v2 introduces major improvements in performance, consistency, and validation features. However, it includes some breaking changes compared to v1. For instance, the `@validator` decorator from v1 has been replaced with `@field_validator` in v2, providing a clearer and more powerful syntax. Similarly, model-level validation is now done using `@model_validator` instead of the `@root_validator` method used in v1.
 
 If you're upgrading from v1 to v2, it's recommended to review the official migration guide, as some code adjustments may be required.
+
+---
+
+>For more detailed information and advanced usage, you can visit the official Pydantic documentation: [https://docs.pydantic.dev/latest/concepts/models/](https://docs.pydantic.dev/latest/concepts/models/)
