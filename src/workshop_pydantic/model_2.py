@@ -55,14 +55,13 @@ class Member(Person):
 class Freelancer(Person):
     id: int
     specialty: Specialty
-    company: list[PartnerCompany | Company]
+    companies: list[PartnerCompany | Company]
     daily_rate: int | None
 
 
 class Researcher(Person):
     id: int
     field_of_study: FieldOfStudy
-    company: list[PartnerCompany | Company]
     number_of_articles: int
 
 
@@ -81,7 +80,6 @@ class Event(BaseModel):
 
 
 class Club(BaseModel):
-    name: str
     members: list[Member | Freelancer | Researcher]
     partner_companies: list[PartnerCompany]
     events: list[Event]
