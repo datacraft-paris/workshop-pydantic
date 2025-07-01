@@ -215,6 +215,41 @@ def postprocess_price(cls, value):
 
 - **wrap**: Receives a handler function to control and customize the entire validation process, allowing code to run before or after standard validation or to short-circuit it.
 
+#### Using `ValidationInfo` in Pydantic Validators
+
+`ValidationInfo` provides context to field validators in Pydantic v2, allowing access to related data and config during validation.
+
+It's an object passed to validators containing:
+
+- `field_name`: name of the field being validated
+- `data`: dict of all input data for the model
+- `config`: model config
+- `context`: optional custom context passed to the validator
+
+**Why use it?**
+
+To perform cross-field validation or customize validation based on other fields.
+
+```python
+from pydantic import BaseModel, field_validator, ValidationInfo
+
+class Product(BaseModel):
+    price: float
+    discount: float
+
+    @field_validator('discount')
+    @classmethod
+    def check_discount(cls, value: float, info: ValidationInfo) -> float:
+        price = info.data.get('price')
+        if value > price * 0.5:
+            raise ValueError("Discount can't exceed 50% of the price")
+        return value
+
+# Usage
+Product(price=100, discount=30)  # OK
+Product(price=100, discount=60)  # Raises ValueError
+```
+
 ### 8. Model-Level Validation (`@model_validator`)
 
 The `@model_validator` decorator in Pydantic v2 allows you to perform validation on the entire model, instead of validating fields individually. This is useful when you need to validate combinations of fields, or apply logic that spans the whole model.
@@ -240,6 +275,21 @@ class UserModel(BaseModel):
             raise ValueError("'card_number' should not be included")
         return data
 ```
+
+#### Difference between `field_validator` with `ValidationInfo` and `model_validator(mode='before')`
+
+- `field_validator` with `ValidationInfo` runs **during validation** of a single field and can access other **already validated fields** via `info.data`.
+
+- `model_validator(mode='before')` runs **before any validation**, receives the **raw input dict**, and can preprocess or validate multiple fields at once.
+
+|                | `field_validator` + `ValidationInfo` | `model_validator(mode='before')` |
+|----------------|--------------------------------------|----------------------------------|
+| When           | During single field validation       | Before any validation             |
+| Input access   | Validated fields (`info.data`)       | Raw input dictionary             |
+| Scope         | Single field                         | Entire model                     |
+
+Use `field_validator` for field-specific checks depending on other fields.
+Use `model_validator(mode='before')` for global input preprocessing.
 
 #### - After Validator (`mode='after'`)
 Runs **after** all fields are validated and the model is instantiated.
