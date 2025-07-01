@@ -156,7 +156,34 @@ person = Person(name="John", address={"city": "Paris", "zip_code": "75000"})
 print(person.address.city)  # Paris
 ```
 
-### 7. Field-Level Validation (`@field_validator`)
+### 7. Computed Fields in Pydantic
+
+A **computed field** is a property in a Pydantic model that is automatically calculated from other fields and **not stored directly**.
+
+You define it using the `@computed_field` decorator above a property method.
+
+#### Why use computed fields?
+
+- To expose derived data without storing redundant values.
+- To keep your model consistent and DRY (Don't Repeat Yourself).
+
+```python
+from pydantic import BaseModel, computed_field
+
+class Event(BaseModel):
+    registrants: list[str]
+
+    @computed_field
+    @property
+    def register_count(self) -> int:
+        return len(self.registrants)
+
+event = Event(registrants=["Alice", "Bob", "Charlie"])
+print(event.register_count)  # Output: 3
+```
+The `register_count` is computed dynamically based on the length of `registrants`.
+
+### 8. Field-Level Validation (`@field_validator`)
 
 In Pydantic v2, you can use `@field_validator` to apply custom validation logic to individual fields.
 
@@ -250,7 +277,7 @@ Product(price=100, discount=30)  # OK
 Product(price=100, discount=60)  # Raises ValueError
 ```
 
-### 8. Model-Level Validation (`@model_validator`)
+### 9. Model-Level Validation (`@model_validator`)
 
 The `@model_validator` decorator in Pydantic v2 allows you to perform validation on the entire model, instead of validating fields individually. This is useful when you need to validate combinations of fields, or apply logic that spans the whole model.
 
@@ -340,7 +367,7 @@ class UserModel(BaseModel):
             raise
 ```
 
-### 9. Lists and Sub-models
+### 10. Lists and Sub-models
 
 Pydantic handles lists and more complex data structures.
 
@@ -358,7 +385,7 @@ article = Article(title="Hello", tags=[{"name": "tech"}, {"name": "python"}])
 print(article.tags[0].name)  # tech
 ```
 
-### 10. Using `default_factory` for Mutable Defaults
+### 11. Using `default_factory` for Mutable Defaults
 
 Pydantic provides `default_factory` to safely assign mutable default values like lists or dictionaries. This ensures that each model instance gets its own separate copy, preventing unwanted shared state.
 
@@ -380,7 +407,7 @@ print(product1.attributes)  # {}
 print(product2.attributes)  # {}
 ```
 
-### 11. Using Enums with Pydantic
+### 12. Using Enums with Pydantic
 
 Pydantic supports Python's built-in `Enum` types to define fields that must have a limited set of possible values. This helps ensure data integrity by restricting inputs to predefined options.
 
