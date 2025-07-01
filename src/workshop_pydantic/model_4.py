@@ -48,6 +48,7 @@ class Person(BaseModel):
     )
 
     @field_validator("name")
+    @classmethod
     def name_must_not_contain_special_chars(cls, value):
         if not value.isalpha():
             raise ValueError("Name must not contain special characters or numbers")
@@ -65,6 +66,7 @@ class Company(BaseModel):
     )
 
     @field_validator("website")
+    @classmethod
     def validate_website_format(cls, value):
         if value is not None and not str(value).startswith(("http://", "https://")):
             raise ValueError("Website must start with http:// or https://")
@@ -95,6 +97,7 @@ class Freelancer(Person):
     )
 
     @field_validator("daily_rate")
+    @classmethod
     def validate_daily_rate(cls, value, info: ValidationInfo):
         if value is not None:
             specialty = info.data.get("specialty")
@@ -147,6 +150,7 @@ class Event(BaseModel):
         return len(self.registrants)
 
     @model_validator(mode="before")
+    @classmethod
     def check_event_data(cls, data):
         if "start_time" in data and "end_time" in data:
             if data["start_time"] >= data["end_time"]:
@@ -177,6 +181,7 @@ class Club(BaseModel):
     )
 
     @field_validator("events")
+    @classmethod
     def validate_events(cls, value, info: ValidationInfo):
         members = info.data.get("members", [])
         if len(members) > 100 and len(value) < 3:
@@ -186,6 +191,7 @@ class Club(BaseModel):
         return value
 
     @model_validator(mode="before")
+    @classmethod
     def check_club_data(cls, data):
         if (
             not data.get("members")
