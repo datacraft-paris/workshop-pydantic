@@ -83,8 +83,21 @@ from pydantic import BaseModel
 
 class Product(BaseModel):
     name: str
-    description: Optional[str] = None
+    description: Optional[str]
 ```
+
+>**Note :**
+>Since Python 3.10, you can use the simpler union syntax ( | None) instead of `Optional`:
+
+```python
+class Product(BaseModel):
+    name: str
+    description: str | None
+```
+
+This new syntax comes from the ability to write unions with the `|` operator, which replaces the older `Union` type from `typing`. For example, `Union[int, str]` can now be written as `int | str`.
+
+As a result, when possible, we avoid using types from the `typing` module like `List` or `Dict` and prefer the built-in `list` and `dict` types with the new syntax (`list[int]` instead of `List[int]`). This leads to cleaner and more modern Python code once fully adopting Python 3.10+.
 
 ### 5. Field Customization with `Field`
 
@@ -372,14 +385,12 @@ class UserModel(BaseModel):
 Pydantic handles lists and more complex data structures.
 
 ```python
-from typing import List
-
 class Tag(BaseModel):
     name: str
 
 class Article(BaseModel):
     title: str
-    tags: List[Tag]
+    tags: list[Tag]
 
 article = Article(title="Hello", tags=[{"name": "tech"}, {"name": "python"}])
 print(article.tags[0].name)  # tech
