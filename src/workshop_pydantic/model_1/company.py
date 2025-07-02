@@ -1,12 +1,10 @@
 from pydantic import BaseModel, HttpUrl
 
 
-class Company(BaseModel):
+class Company(...):
     name: str
-    website: HttpUrl | None
-    sector: str
-    employee_count: int
+    website: ...
+    ...
 
 
-class PartnerCompany(Company):
-    is_active: bool
+class ...

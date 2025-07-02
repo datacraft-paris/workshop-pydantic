@@ -4,15 +4,13 @@ from datetime import datetime
 from .people import Member, Freelancer, Researcher
 
 
-class Event(BaseModel):
+class Event(...):
     name: str
     event_type: str
-    registrants: list[Member | Freelancer | Researcher]
-    location: str
-    start_time: datetime
-    end_time: datetime
+    registrants: ...
+    location: ...
+    start_time: ...
+    end_time: ...
 
     @computed_field
-    @property
-    def register_count(self) -> int:
-        return len(self.registrants)
+    ...

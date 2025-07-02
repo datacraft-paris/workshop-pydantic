@@ -6,6 +6,6 @@ from .event import Event
 
 
 class Club(BaseModel):
-    members: list[Member | Freelancer | Researcher]
+    members: ...
     partner_companies: list[PartnerCompany]
-    events: list[Event]
+    events: ...
