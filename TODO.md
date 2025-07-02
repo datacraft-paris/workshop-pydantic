@@ -133,11 +133,11 @@ In this stage, you will enhance the existing classes by adding field validations
 
 By adding these field validations and descriptions, you will ensure that the data in your models is well-defined and adheres to specific constraints, improving the robustness and clarity of your code.
 
-## Stage 4: Adding Custom Validators - folder model_4
+## Stage 4 : Adding Custom Validators - folder model_4
 
 In this stage, you will enhance the existing classes by adding custom validators. These validators will enforce specific business rules and constraints, ensuring that the data adheres to more complex conditions.
 
-### File: people.py
+### File : people.py
 
 1. **Modify the `Person` class**
    - Add a field validator for the `name` attribute to ensure it does not contain special characters or numbers (you can use *.isalpha()* for example)
@@ -149,7 +149,7 @@ In this stage, you will enhance the existing classes by adding custom validators
      - Cybersecurity: at least 400 euros
      - DevOps: at least 375 euros
 
-### File: company.py
+### File : company.py
 
 3. **Modify the `Company` class**
    - Add a field validator for the `website` attribute to ensure that companies in the finance sector must have a website.
@@ -162,7 +162,7 @@ In this stage, you will enhance the existing classes by adding custom validators
      - Datathon events must have at least 10 registered attendees.
      - Non-networking events must have at least one registrant.
 
-### File: club.py
+### File : club.py
 
 5. **Modify the `Club` class**
    - Add a field validator for the `events` attribute to ensure that clubs with more than 100 members must have at least 3 events (use *ValidationInfo*).
