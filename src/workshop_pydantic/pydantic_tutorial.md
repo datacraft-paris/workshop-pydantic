@@ -144,7 +144,8 @@ count: int = Field(default=0)
 |-------------|------------------------------------|---------------|
 | `max_length`| Maximum length for strings          | `str`         |
 | `min_length`| Minimum length for strings          | `str`         |
-| `regex`     | Regular expression pattern to match| `str`         |
+| `pattern`   | Regular expression pattern the string must match| `str`  |
+| `regex` | (*Deprecated*) Regex pattern, **replaced by `pattern` in Pydantic V2**  | `str`    |
 | `gt`        | Greater than                       | `int`, `float`|
 | `ge`        | Greater than or equal to           | `int`, `float`|
 | `lt`        | Less than                         | `int`, `float`|
