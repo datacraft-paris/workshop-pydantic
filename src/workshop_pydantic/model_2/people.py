@@ -16,7 +16,7 @@ class Member(Person):
 
 class Freelancer(Person):
     id: int
-    specialty: Specialty
+    specialty: ...
     companies: list[PartnerCompany | Company]
     daily_rate: int | None
 

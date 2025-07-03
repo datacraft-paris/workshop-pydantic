@@ -7,7 +7,7 @@ from .enums import EventType
 
 class Event(BaseModel):
     name: str
-    event_type: EventType
+    event_type: ...
     registrants: list[Member | Freelancer | Researcher]
     location: str
     start_time: datetime

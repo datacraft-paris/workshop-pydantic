@@ -11,12 +11,12 @@ class Person(BaseModel):
         description="Email address of the person",
     )
 
-    @field_validator("name")
+    @field_validator(...)
     @classmethod
-    def name_must_not_contain_special_chars(cls, value):
+    def name_must_not_contain_special_chars(..., value):
         if not all(char.isalpha() or char.isspace() for char in value):
             raise ValueError("Name must not contain special characters or numbers")
-        return value
+        return ...
 
 
 class Member(Person):
@@ -37,24 +37,24 @@ class Freelancer(Person):
         description="Daily rate for the freelancer in euros (must be multiple of 50)",
     )
 
-    @field_validator("daily_rate")
-    @classmethod
+    @field_validator(...)
+    @...
     def validate_daily_rate(cls, value, info: ValidationInfo):
-        if value is not None:
-            specialty = info.data.get("specialty")
+        if value is not ...:
+            specialty = info.data.get(...)
             if specialty == Specialty.SOFTWARE_DEVELOPMENT and value < 300:
-                raise ValueError(
+                raise ...(
                     "Daily rate for Software Development must be at least 300 euros"
                 )
-            if specialty == Specialty.DATA_SCIENCE and value < 350:
+            if ... == Specialty.DATA_SCIENCE and value < 350:
                 raise ValueError(
                     "Daily rate for Data Science must be at least 350 euros"
                 )
-            if specialty == Specialty.CYBERSECURITY and value < 400:
+            if specialty == ... and value < 400:
                 raise ValueError(
                     "Daily rate for Cybersecurity must be at least 400 euros"
                 )
-            if specialty == Specialty.DEVOPS and value < 375:
+            if specialty == Specialty.DEVOPS and value < ...:
                 raise ValueError("Daily rate for DevOps must be at least 375 euros")
         return value
 

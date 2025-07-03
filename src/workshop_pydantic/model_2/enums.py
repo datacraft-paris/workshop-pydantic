@@ -11,19 +11,19 @@ class Sector(str, Enum):
 class Specialty(str, Enum):
     SOFTWARE_DEVELOPMENT = "Software Development"
     DATA_SCIENCE = "Data Science"
-    CYBERSECURITY = "Cybersecurity"
+    CYBERSECURITY = ...
     DEVOPS = "DevOps"
 
 
-class FieldOfStudy(str, Enum):
+class FieldOfStudy(str, ...):
     COMPUTER_SCIENCE = "Computer Science"
-    BIOLOGY = "Biology"
+    ... = "Biology"
     PHYSICS = "Physics"
-    CHEMISTRY = "Chemistry"
+    ... = "Chemistry"
 
 
-class EventType(str, Enum):
+class EventType(..., Enum):
     WORKSHOP = "Workshop"
     CONFERENCE = "Conference"
-    SEMINAR = "Seminar"
-    DATATHON = "Datathon"
+    ...
+    ...

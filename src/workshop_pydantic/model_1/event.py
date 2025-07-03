@@ -5,14 +5,14 @@ from .people import Member, Freelancer, Researcher
 
 
 class Event(BaseModel):
-    name: str
+    name: ...
     event_type: str
-    registrants: list[Member | Freelancer | Researcher]
+    registrants: list[Member | ... | Researcher]
     location: str
     start_time: datetime
-    end_time: datetime
+    end_time: ...
 
-    @computed_field
+    @...
     @property
-    def register_count(self) -> int:
-        return len(self.registrants)
+    def register_count(self) -> ... :
+        return len(self....)

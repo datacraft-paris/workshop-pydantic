@@ -3,24 +3,24 @@ from pydantic import BaseModel
 from .company import PartnerCompany, Company
 
 
-class Person(BaseModel):
+class Person(...):
     name: str
     email: str
 
 
 class Member(Person):
-    id: int
+    id: ...
     company: PartnerCompany
 
 
-class Freelancer(Person):
+class Freelancer(...):
     id: int
     specialty: str
-    companies: list[PartnerCompany | Company]
-    daily_rate: int | None
+    companies: list[... | ...]
+    daily_rate: ...
 
 
-class Researcher(Person):
+... Researcher(...):
     id: int
-    field_of_study: str
-    number_of_articles: int
+    field_of_study: ...
+    ...

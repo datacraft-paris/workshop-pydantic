@@ -10,8 +10,8 @@ class Club(BaseModel):
         default_factory=list, description="List of club members"
     )
     partner_companies: list[PartnerCompany] = Field(
-        default_factory=list, description="List of partner companies"
+        default_factory=..., description="List of partner companies"
     )
     events: list[Event] = Field(
-        default_factory=list, description="List of events organized by the club"
+        ...=list, description="List of events organized by the club"
     )
