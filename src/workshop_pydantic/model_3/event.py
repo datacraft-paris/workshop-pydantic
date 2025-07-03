@@ -11,7 +11,7 @@ class Event(BaseModel):
         ...=list, description="List of registrants for the event"
     )
     location: str = Field(
-        min_length=2, ..., description="Location of the event"
+        ...=2, ..., description="Location of the event"
     )
     start_time: datetime = ...(description="Start time of the event")
     end_time: datetime = Field(...="End time of the event")
