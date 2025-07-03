@@ -3,8 +3,8 @@ from pydantic import BaseModel, HttpUrl
 
 class Company(BaseModel):
     name: str
-    website: HttpUrl | None
     sector: str
+    website: HttpUrl | None
     employee_count: int
 
 
