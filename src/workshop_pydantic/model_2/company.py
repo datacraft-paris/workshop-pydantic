@@ -5,7 +5,7 @@ from .enums import Sector
 
 class Company(BaseModel):
     name: str
-    sector: Sector
+    sector: ...
     website: HttpUrl | None
     employee_count: int
 

@@ -16,23 +16,23 @@ class Club(BaseModel):
         default_factory=list, description="List of events organized by the club"
     )
 
-    @field_validator("events")
-    @classmethod
-    def validate_events(cls, value, info: ValidationInfo):
-        members = info.data.get("members", [])
-        if len(members) > 100 and len(value) < 3:
+    @field_validator(...)
+    @...
+    def validate_events(cls, value, ...):
+        members = ...
+        if len(...) > 100 and len(...) < 3:
             raise ValueError(
                 "Clubs with more than 100 members must have at least 3 events"
             )
-        return value
+        return ...
 
-    @model_validator(mode="before")
+    @...(mode=...)
     @classmethod
-    def check_club_data(cls, data):
+    def check_club_data(...):
         if (
             not data.get("members")
-            and not data.get("partner_companies")
-            and not data.get("events")
+            and not ...
+            ...
         ):
             raise ValueError(
                 "A club must have at least one member, partner company, or event"

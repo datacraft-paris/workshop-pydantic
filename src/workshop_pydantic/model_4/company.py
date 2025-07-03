@@ -13,13 +13,13 @@ class Company(BaseModel):
         gt=0, lt=100000, description="Number of employees in the company"
     )
 
-    @field_validator("website")
+    @field_validator(...)
     @classmethod
-    def website_required_for_finance(cls, value, info: ValidationInfo):
-        sector = info.data.get("sector")
-        if sector == Sector.FINANCE and value is None:
-            raise ValueError("Finance companies must have a website")
-        return value
+    def website_required_for_finance(..., info: ValidationInfo):
+        sector = ...
+        if sector == ... and value is ...:
+            raise ...("Finance companies must have a website")
+        return ...
 
 
 class PartnerCompany(Company):

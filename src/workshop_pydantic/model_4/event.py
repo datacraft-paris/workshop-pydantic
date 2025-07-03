@@ -21,20 +21,20 @@ class Event(BaseModel):
     def register_count(self) -> int:
         return len(self.registrants)
 
-    @model_validator(mode="before")
+    @...(mode=...)
     @classmethod
-    def check_event_data(cls, data):
-        if "start_time" in data and "end_time" in data:
-            if data["start_time"] >= data["end_time"]:
+    def ...(cls, data):
+        if "start_time" in ... and ... in data:
+            if ... >= ...:
                 raise ValueError("Start time must be before end time")
         return data
 
     @model_validator(mode="after")
-    def check_event_registration_and_speakers(self):
-        if self.event_type == EventType.DATATHON and len(self.registrants) < 10:
-            raise ValueError(
+    def check_event_registration_and_speakers(...):
+        if ... == EventType.DATATHON and ... < 10:
+            raise ...(
                 "Datathon events must have at least 10 registered attendees"
             )
-        if not self.registrants and self.event_type != EventType.CONFERENCE:
+        if not ... and self.event_type ...:
             raise ValueError("Non-networking events must have at least one registrant")
         return self
