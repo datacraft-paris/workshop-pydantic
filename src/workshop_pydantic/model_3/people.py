@@ -7,7 +7,7 @@ from .enums import Specialty, FieldOfStudy
 class Person(BaseModel):
     name: str = Field(min_length=2, max_length=50, description="Name of the person")
     email: str = Field(
-        regex=r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+        pattern=r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
         description="Email address of the person",
     )
 

@@ -7,14 +7,14 @@ from .enums import Specialty, FieldOfStudy
 class Person(BaseModel):
     name: str = Field(min_length=2, max_length=50, description="Name of the person")
     email: str = Field(
-        regex=r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+        pattern=r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
         description="Email address of the person",
     )
 
     @field_validator("name")
     @classmethod
     def name_must_not_contain_special_chars(cls, value):
-        if not value.isalpha():
+        if not all(char.isalpha() or char.isspace() for char in value):
             raise ValueError("Name must not contain special characters or numbers")
         return value
 
