@@ -8,16 +8,16 @@ class Sector(str, Enum):
     FINANCE = ...
 
 
-class Specialty(str, Enum):
+class Specialty(str, ...):
     SOFTWARE_DEVELOPMENT = "Software Development"
     DATA_SCIENCE = ...
 
 
 
-class FieldOfStudy(str, Enum):
+class FieldOfStudy(..., Enum):
     COMPUTER_SCIENCE = "Computer Science"
     ...
 
 
-class EventType(str, Enum):
+class EventType(...):
     ...
