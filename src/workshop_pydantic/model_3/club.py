@@ -6,7 +6,6 @@ from .event import Event
 
 
 class Club(BaseModel):
-    name: str = Field(min_length=2, max_length=100, description="Name of the club")
     members: list[Member | Freelancer | Researcher] = Field(
         default_factory=list, description="List of club members"
     )
