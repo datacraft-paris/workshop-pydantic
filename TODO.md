@@ -3,11 +3,11 @@
 This exercise is structured into four stages, each building upon the previous one. You will work within four directories: `model_1`, `model_2`, `model_3`, and `model_4`. In each stage, you will extend the functionality of the existing code by adding new features and exploring important aspects of Pydantic. Follow the instructions for each stage and modify the classes in their respective files accordingly.
 
 
-## Stage 1 : Foundational Classes - folder model_1
+## Stage 1 : Foundational Classes - [folder model_1](src/workshop_pydantic/model_1)
 
 In this stage, you will create the basic structure of the classes, setting up the foundational models that will be extended in subsequent stages. This involves defining the primary attributes for each class without additional constraints or validations.
 
-### File : people.py
+### File : [people.py](src/workshop_pydantic/model_1/people.py)
 
 1. **Create the `Person` class**
    - Define a class named `Person` with attributes `name` and `email`, both of which are strings.
@@ -21,7 +21,7 @@ In this stage, you will create the basic structure of the classes, setting up th
 4. **Create the `Researcher` class**
    - Define a class named `Researcher` that inherits from `Person`. Add attributes `id` (integer), `field_of_study` (string), and `number_of_articles` (integer).
 
-### File : company.py
+### File : [company.py](src/workshop_pydantic/model_1/company.py)
 
 5. **Create the `Company` class**
    - Define a class named `Company` with attributes `name` (string), `website` (optional HttpUrl), `sector` (string), and `employee_count` (integer).
@@ -29,23 +29,23 @@ In this stage, you will create the basic structure of the classes, setting up th
 6. **Create the `PartnerCompany` class**
    - Define a class named `PartnerCompany` that inherits from `Company`. Add an attribute `is_active` which is a boolean.
 
-### File : event.py
+### File : [event.py](src/workshop_pydantic/model_1/event.py)
 
 7. **Create the `Event` class**
    - Define a class named `Event` with attributes `name` (string),`event_type` (string), `registrants` (list of Member, Freelancer, or Researcher), `location` (string), `start_time` (datetime), and `end_time` (datetime).
    - Add a computed field `register_count` that returns the number of registrants.
 
-### File : club.py
+### File : [club.py](src/workshop_pydantic/model_1/club.py)
 
 8. **Create the `Club` class**
    - Define a class named `Club` with attributes `members` (list of Member, Freelancer, or Researcher), `partner_companies` (list of PartnerCompany), and `events` (list of Event).
 
 
-## Stage 2 : Incorporating Enums - folder model_2
+## Stage 2 : Incorporating Enums - [folder model_2](src/workshop_pydantic/model_2)
 
 In this stage, you will add enumerations to define specific sets of values for certain fields. You will modify the existing classes to use these enums, enhancing the structure and type safety of the models.
 
-### File : enums.py
+### File : [enums.py](src/workshop_pydantic/model_2/enums.py)
 
 1. **Create the `Sector` enum**
    - Define an enum named `Sector` with the following values: `TECHNOLOGY`, `HEALTHCARE`, `EDUCATION`, and `FINANCE`.
@@ -59,12 +59,12 @@ In this stage, you will add enumerations to define specific sets of values for c
 4. **Create the `EventType` enum**
    - Define an enum named `EventType` with the following values: `WORKSHOP`, `CONFERENCE`, `SEMINAR`, and `DATATHON`.
 
-### File : company.py
+### File : [company.py](src/workshop_pydantic/model_2/company.py)
 
 5. **Modify the `Company` class**
    - Update the `sector` attribute to use the `Sector` enum.
 
-### File : people.py
+### File : [people.py](src/workshop_pydantic/model_2/people.py)
 
 6. **Modify the `Freelancer` class**
    - Update the `specialty` attribute to use the `Specialty` enum.
@@ -72,18 +72,18 @@ In this stage, you will add enumerations to define specific sets of values for c
 7. **Modify the `Researcher` class**
    - Update the `field_of_study` attribute to use the `FieldOfStudy` enum.
 
-### File : event.py
+### File : [event.py](src/workshop_pydantic/model_2/event.py)
 
 8. **Modify the `Event` class**
    - Update the `event_type` attribute to use the `EventType` enum.
 
 By incorporating these enums, you will ensure that certain fields in your models can only take predefined values, thereby increasing the robustness and clarity of your code.
 
-## Stage 3 : Adding Field Validations - folder model_3
+## Stage 3 : Adding Field Validations - [folder model_3](src/workshop_pydantic/model_3)
 
 In this stage, you will enhance the existing classes by adding field validations and descriptions. This will ensure that the data adheres to specific constraints and provide clarity on the expected data format.
 
-### File : people.py
+### File : [people.py](src/workshop_pydantic/model_3/people.py)
 
 1. **Modify the `Person` class**
    - Add field validations and descriptions for the `name` and `email` attributes.
@@ -105,7 +105,7 @@ In this stage, you will enhance the existing classes by adding field validations
    - `id`: Ensure it is greater than 0.
    - `number_of_articles`: Ensure it is greater than or equal to 0, with a default value of 0, and does not allow infinite or NaN values.
 
-### File : company.py
+### File : [company.py](src/workshop_pydantic/model_3/company.py)
 
 5. **Modify the `Company` class**
    - Add field validations and descriptions for the `name`, `website`, `sector`, and `employee_count` attributes.
@@ -117,14 +117,14 @@ In this stage, you will enhance the existing classes by adding field validations
    - Add field validations and descriptions for the `is_active` attribute.
    - `is_active`: Provide a default value of `True`.
 
-### File : event.py
+### File : [event.py](src/workshop_pydantic/model_3/event.py)
 
 7. **Modify the `Event` class**
    - Add field validations and descriptions for the `event_type`, `registrants`, `location`, `start_time`, and `end_time` attributes.
    - `registrants`: initialize as an empty list.
    - `location`: Ensure it has a minimum length of 2 and a maximum length of 200.
 
-### File : club.py
+### File : [club.py](src/workshop_pydantic/model_3/club.py)
 
 8. **Modify the `Club` class**
    - Add field validations and descriptions for the `name`, `members`, `partner_companies`, and `events` attributes.
@@ -133,11 +133,11 @@ In this stage, you will enhance the existing classes by adding field validations
 
 By adding these field validations and descriptions, you will ensure that the data in your models is well-defined and adheres to specific constraints, improving the robustness and clarity of your code.
 
-## Stage 4 : Adding Custom Validators - folder model_4
+## Stage 4 : Adding Custom Validators - [folder model_4](src/workshop_pydantic/model_4)
 
 In this stage, you will enhance the existing classes by adding custom validators. These validators will enforce specific business rules and constraints, ensuring that the data adheres to more complex conditions.
 
-### File : people.py
+### File : [people.py](src/workshop_pydantic/model_4/people.py)
 
 1. **Modify the `Person` class**
    - Add a field validator for the `name` attribute to ensure it does not contain special characters or numbers (you can use *.isalpha()* for example)
@@ -149,12 +149,12 @@ In this stage, you will enhance the existing classes by adding custom validators
      - Cybersecurity: at least 400 euros
      - DevOps: at least 375 euros
 
-### File : company.py
+### File : [company.py](src/workshop_pydantic/model_4/company.py)
 
 3. **Modify the `Company` class**
    - Add a field validator for the `website` attribute to ensure that companies in the finance sector must have a website.
 
-### File : event.py
+### File : [event.py](src/workshop_pydantic/model_4/event.py)
 
 4. **Modify the `Event` class**
    - Add a model validator (mode="before") to ensure that the `start_time` is before the `end_time`.
@@ -162,7 +162,7 @@ In this stage, you will enhance the existing classes by adding custom validators
      - Datathon events must have at least 10 registered attendees.
      - Non-networking events must have at least one registrant.
 
-### File : club.py
+### File : [club.py](src/workshop_pydantic/model_4/club.py)
 
 5. **Modify the `Club` class**
    - Add a field validator for the `events` attribute to ensure that clubs with more than 100 members must have at least 3 events (use *ValidationInfo*).
