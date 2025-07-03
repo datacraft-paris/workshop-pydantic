@@ -108,7 +108,21 @@ The structure is the same across all branches to ensure consistency in learning 
 
 As you complete each stage (`model_1` to `model_4`), you can validate your implementation by running the corresponding test file located in the `tests/` folder, such as `test_model_1.py`, `test_model_2.py`, etc., found in all branches.
 
-These tests confirm that your code meets the core requirements of each stage **without revealing the full solution**, allowing you to progress independently before consulting the `correction` branch.
+To validate your progress, run the test corresponding to the current model step :
+
+```bash
+pytest tests/test_model_N.p
+```
+
+*Replace `N` with the model number.*
+
+![illustration](assets/capture_1.png)
+
+Make sure you're in the project root (where the workshop-pydantic folder is), not inside `src/` or `tests/`.
+
+![illustration](assets/capture_2.png)
+When you run the command in your terminal, you should see an output like the image above — showing which tests failed or passed. If everything is correct, you'll see only green "passed" lines.
+
 
 > **Note:** Do not modify the test files. They are designed to verify expected behavior at each stage. While they cover key elements, they do not guarantee completeness or best practices — for a full review, you can refer to the final implementation in the `correction` branch.
 
