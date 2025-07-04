@@ -51,7 +51,13 @@ Additionally, there is a `tests` directory containing test files for each stage 
 
 ## Setup
 
-### Installation
+You can complete this workshop in **two ways**:
+
+---
+
+### Option 1 — Local setup (with classic VS Code)
+
+If you're comfortable working locally, simply clone the repository and use `uv` to install dependencies.
 
 Install `uv` (Python package manager with virtual environment support):
 
@@ -59,11 +65,56 @@ Install `uv` (Python package manager with virtual environment support):
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-## Setup
+>If the uv installation fails or you're having trouble with your virtual environment, you can try running the workshop in the cloud using GitHub Codespaces instead.
 
-Then, run: `uv sync`
+Then, run `uv sync` to install dependencies
 
-Finally, activate your environment using: `source .venv/bin/activate`
+```bash
+uv sync
+```
+
+Finally, activate your environment using:
+
+```bash
+source .venv/bin/activate
+```
+
+### Option 2 — Run in GitHub Codespaces (cloud)
+
+If you prefer not to set up anything locally, you can run everything directly in the browser via **GitHub Codespaces** — no installation required.
+
+1. Go to the repository on GitHub.
+2. **Select the branch you want to work.**
+3. Click on the green **Code** button → "Create codespace on `Branch's name` " 
+4. In the terminal that opens in the Codespace, run the same commands as you would locally
+
+![illustration](assets/capture_3.png)
+
+Install `uv` (Python package manager with virtual environment support) :
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+>If the uv installation fails or you're having trouble with your virtual environment, you can try running the workshop in the cloud using GitHub Codespaces instead.
+
+Then, run `uv sync` to install dependencies
+
+```bash
+uv sync
+```
+
+Finally, activate your environment using:
+
+```bash
+source .venv/bin/activate
+```
+
+**Important** : Codespaces are tied to the branch selected when you create them.
+If you want to switch branches later, go back to GitHub, select the new branch, and click on the + (plus) icon in the top right corner to create a new Codespace for that branch.
+You will then need to repeat the same terminal commands (`curl`,`uv sync`, ...) inside the new Codespace.
+
+![illustration](assets/capture_4.png)
 
 ## Practical Session – Build and Validate Pydantic Models
 
