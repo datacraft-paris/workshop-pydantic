@@ -111,7 +111,7 @@ As you complete each stage (`model_1` to `model_4`), you can validate your imple
 To validate your progress, run the test corresponding to the current model step :
 
 ```bash
-pytest tests/test_model_N.p
+pytest tests/test_model_N.py
 ```
 
 *Replace `N` with the model number.*
