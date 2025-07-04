@@ -16,11 +16,14 @@ Pydantic stands out by offering **dynamic type validation** at runtime, not just
 
 ### Common Use Cases
 
-- Validating incoming data in web APIs (e.g., FastAPI)
-- Managing environment variables and application settings
+- **Validating incoming data in web APIs (e.g., FastAPI)**
+- **Generating structured objects from raw or AI-generated input**
+- **Managing environment variables and application settings**
 - Structuring and validating inputs in data engineering pipelines
 - Securing internal tools through enforced data contracts
 - Ensuring clean boundaries between components in large codebases
+
+*These use cases make Pydantic a strong tool for both backend robustness and data modeling.*
 
 ### Why Pydantic Is Powerful
 
@@ -119,7 +122,7 @@ class Product(BaseModel):
 - Define **validation constraints** like:
   - `max_length`, `min_length` (for strings)
   - `gt` (greater than), `ge` (greater or equal), `lt` (less than), `le` (less or equal) for numbers
-  - `regex` to enforce a regular expression pattern
+  - `pattern` to enforce a regular expression pattern
 - Use `default_factory` to provide a callable for default values (e.g., empty list or dict)
 - The order of the arguments in `Field()` does not affect their behavior since they are all keyword arguments.
 
@@ -232,30 +235,6 @@ class Product(BaseModel):
 > **For your information:**
 > Although `before`, `after`, `plain`, and `wrap` modes provide fine-grained control over validation timing and behavior, in most cases you won’t need to specify them explicitly when using `field_validator`.
 
-#### Using `before` and `after` hooks
-
-You can specify whether your validator runs **before** or **after** built-in validation using:
-
-```python
-@field_validator('price', before=True)
-@classmethod
-def preprocess_price(cls, value):
-    # modify value before core validation
-    return value
-
-@field_validator('price', after=True)
-@classmethod
-def postprocess_price(cls, value):
-    # validate or modify after core validation
-    return value
-```
-
-#### Validation modes: `plain` vs `wrap`
-
-- **plain**: Receives raw input and terminates validation immediately, skipping all further validation including Pydantic's internal checks.
-
-- **wrap**: Receives a handler function to control and customize the entire validation process, allowing code to run before or after standard validation or to short-circuit it.
-
 #### Using `ValidationInfo` in Pydantic Validators
 
 `ValidationInfo` provides context to field validators in Pydantic v2, allowing access to related data and config during validation.
@@ -353,32 +332,6 @@ class User(BaseModel):
         if self.password != self.confirm_password:
             raise ValueError('Passwords do not match')
         return self
-```
-
-#### - Wrap Validator (`mode='wrap'`)
-Most flexible.
-Allows you to run logic **before and after** internal validation.
-Must include a `handler` parameter which you can choose to call or not.
-
-*Less commonly used, but powerful for advanced scenarios like custom logging or dynamic correction.*
-
-```python
-import logging
-from typing import Any
-from typing_extensions import Self
-from pydantic import BaseModel, ModelWrapValidatorHandler, ValidationError, model_validator
-
-class UserModel(BaseModel):
-    username: str
-
-    @model_validator(mode='wrap')
-    @classmethod
-    def log_failed_validation(cls, data: Any, handler: ModelWrapValidatorHandler[Self]) -> Self:
-        try:
-            return handler(data)
-        except ValidationError:
-            logging.error('Model %s failed to validate with data %s', cls, data)
-            raise
 ```
 
 ### 10. Lists and Sub-models
