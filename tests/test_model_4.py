@@ -35,7 +35,7 @@ def test_company_website_validator():
     assert company.website == HttpUrl("http://financecorp.example.com")
 
     # Test finance company without website
-    with pytest.raises(ValidationError) as excinfo:
+    with pytest.raises(ValidationError):
         Company(
             name="Finance Corp", website=None, sector=Sector.FINANCE, employee_count=100
         )
