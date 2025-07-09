@@ -10,6 +10,7 @@ Pydantic is widely used in modern Python projects such as FastAPI, data pipeline
 - Understand the core principles of **Pydantic** (models, type validation, automatic parsing).
 - Practice with one progressive exercise available in three levels of difficulty.
 - Discover how to structure clean and robust data models in Python projects.
+- Learn to integrate Pydantic with AI models for structured and validated data generation.
 
 
 
@@ -39,6 +40,17 @@ The project is structured into four main directories, `model_1`, `model_2`, `mod
 - `enums.py`
 
 Each stage builds upon the previous one, adding complexity and new features. The `TODO.md` file at the root of the project contains the instructions for each stage.
+
+The `Structured Output` directory
+
+In this final stage, you will find a directory named `structured_output`. This directory contains a practical example demonstrating the advanced capabilities of Pydantic. It showcases how to generate and validate structured data, representing the culmination of techniques learned in previous stages.
+
+#### Key Components:
+
+- **Directory**: `structured_output`
+  - This directory includes files that illustrate the integration of Pydantic for structured data handling.
+
+- **Objective**: The goal of this stage is to provide a comprehensive example of how Pydantic can be utilized to ensure data integrity and structure, offering insights into the potential and versatility of Pydantic in real-world applications.
 
 Additionally, there is a `tests` directory containing test files for each stage to validate your implementation:
 
@@ -118,7 +130,7 @@ You will then need to repeat the same terminal commands (`curl`,`uv sync`, ...) 
 
 ## Practical Session – Build and Validate Pydantic Models
 
-This workshop offers a single exercise available in four stages, tailored for learners of all backgrounds.
+This workshop offers a single exercise available in five stages, tailored for learners of all backgrounds.
 
 We recommend starting with the default branch (`main`) to go through the short tutorial and learn how Pydantic works.
 
@@ -129,9 +141,11 @@ Each branch (`easy`, `intermediate`, `hard`) contains:
 - Four sequential model directories: `model_1`, `model_2`, `model_3`, and `model_4`.
   These represent progressive steps of the exercise and must be completed in order.
   Each directory builds upon the previous one — serving both as a **partial correction** and a **new step** that adds complexity.
-  To access the **complete final solution**, refer to the `correction` branch, which provides the full version of `model_4`.
+- A final directory `structured_output` that demonstrates advanced usage of Pydantic for generating and validating structured data, showcasing the culmination of techniques learned in previous stages.
 - Four corresponding test files located in the `tests/` folder: `test_model_1.py`, `test_model_2.py`, etc.
   Each test file is dedicated to checking the behavior of its associated model step.
+
+To access the **complete final solution**, refer to the `correction` branch, which provides the full version of `model_4` and the `structured_output`.
 
 The structure is the same across all branches to ensure consistency in learning progression.
 
