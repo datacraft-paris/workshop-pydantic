@@ -19,7 +19,7 @@ def main():
                 "content": ...,
             },
         ],
-        response_format=Club,
+        response_format=...,
     )
     result_dict = json.loads(...)
     with open("club.json", "w") as f:
