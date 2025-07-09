@@ -1,6 +1,6 @@
 # Pydantic Exercise : Progressive Model Development
 
-This exercise is structured into four stages, each building upon the previous one. You will work within four directories: `model_1`, `model_2`, `model_3`, and `model_4`. In each stage, you will extend the functionality of the existing code by adding new features and exploring important aspects of Pydantic. Follow the instructions for each stage and modify the classes in their respective files accordingly.
+This exercise is structured into four stages, each building upon the previous one. You will work within fives directories: `model_1`, `model_2`, `model_3`, `model_4` and `structured_output`. In each stage, you will extend the functionality of the existing code by adding new features and exploring important aspects of Pydantic. The final stage, `structured_output`, introduces how Pydantic can be combined with an AI system to generate and validate structured responses. Follow the instructions for each stage and modify the classes in their respective files accordingly.
 
 
 ## Stage 1 : Foundational Classes - [folder model_1](src/workshop_pydantic/model_1)
@@ -170,6 +170,33 @@ In this stage, you will enhance the existing classes by adding custom validators
 
 By adding these custom validators, you will ensure that the data in your models adheres to specific business rules and constraints, improving the robustness and reliability of your code.
 
+## Stage 5: Structured Output with AI Integration - [folder structured_output](src/workshop_pydantic/structured_output)
+
+In this final stage, you will integrate Pydantic with an AI system to generate and validate structured responses. This involves using the OpenAI API to create instances of your models based on AI-generated content.
+
+Don’t forget to add your API key in the `.env` file, and then fill in the `...` placeholders in the script accordingly.
+
+### File : [generate_club.py](src/workshop_pydantic/structured_output/generate_club.py)
+
+### Configure the OpenAI Client
+
+- Use `load_dotenv` to load environment variables from a `.env` file.
+- Initialize the OpenAI client.
+
+### Use the OpenAI API to Generate Club Information
+
+- Use the `client.beta.chat.completions.parse` method to generate structured club information.
+- Specify the model to be used, such as "gpt-4o-mini".
+- Define the messages for the API. To effectively communicate with the AI, you need to define the messages you send to it. This includes a system message that sets the context or role of the AI, such as being a helpful assistant that generates club information. Additionally, you should include a user message that clearly outlines the task, such as generating detailed information about a club
+- Use the `Club` model as the response format to structure the generated data.
+
+### Convert and Save the Results
+
+- Convert the generated result into a dictionary using `json.loads`.
+- Save the dictionary into a JSON file named `club.json` with proper indentation for readability.
+
+>Combining Pydantic with AI models ensures structured, validated, and tailored data generation, enhancing application efficiency and reliability.
+
 ---
 
-With the completion of these stages, you have successfully built and refined a comprehensive set of models using Pydantic !
+With the completion of these stages, you have successfully built and refined a comprehensive set of models using Pydantic, ensuring structured and validated data generation that enhances the efficiency and reliability of your applications !
