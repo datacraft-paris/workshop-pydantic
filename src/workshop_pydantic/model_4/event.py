@@ -36,5 +36,5 @@ class Event(BaseModel):
                 "Datathon events must have at least 10 registered attendees"
             )
         if not ... and self.event_type ...:
-            raise ValueError("Non-networking events must have at least one registrant")
+            raise ValueError("Non-conference events must have at least one registrant")
         return self
