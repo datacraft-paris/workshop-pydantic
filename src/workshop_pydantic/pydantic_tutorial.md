@@ -350,6 +350,24 @@ article = Article(title="Hello", tags=[{"name": "tech"}, {"name": "python"}])
 print(article.tags[0].name)  # tech
 ```
 
+**Lists with mixed types using Union or |**
+
+If you want to accept a list that can contain multiple types (e.g., both str and int), you can use Union — or the | operator (Python 3.10+) :
+
+```python
+from typing import Union
+
+class MixedValues(BaseModel):
+    values: list[Union[str, int]]  # or list[str | int] if you're using Python 3.10+
+
+# Valid input
+example = MixedValues(values=["AI", 42, "data", 2025])
+print(example.values)  # ['AI', 42, 'data', 2025]
+```
+
+This allows each item in the list to be either a string or an integer.
+Pydantic will validate each item accordingly, and raise an error if something unexpected is included (e.g., a `dict` or `float`).
+
 ### 11. Using `default_factory` for Mutable Defaults
 
 Pydantic provides `default_factory` to safely assign mutable default values like lists or dictionaries. This ensures that each model instance gets its own separate copy, preventing unwanted shared state.
