@@ -1,7 +1,27 @@
 # Pydantic Workshop – Learn by Doing
 
+![illustration](assets/logo_pydantic.jpg)
+
+![Python](https://img.shields.io/badge/python-3.10+-blue)
+![Repo Size](https://img.shields.io/github/repo-size/datacraft-paris/workshop-pydantic)
+![Last Commit](https://img.shields.io/github/last-commit/datacraft-paris/workshop-pydantic)
+![Contributors](https://img.shields.io/github/contributors/datacraft-paris/workshop-pydantic)
+
+
+
 This repository is designed to help you learn **Pydantic**, a powerful Python library for data validation and parsing.
 Pydantic is widely used in modern Python projects such as FastAPI, data pipelines, and configuration management.
+It also enables **structured data generation from AI models**, allowing you to turn raw LLM output into clean, validated Python objects.
+
+---
+
+## Table of Contents
+- **[Workshop Goals](#workshop-goals)**
+- **[Branch Organization](#branch-organization)**
+- **[Project Structure](#project-structure)**
+- **[Setup](#setup)**
+- **[Practical Session](#practical-session--build-and-validate-pydantic-models)**
+- **[Check Your Progress](#check-your-progress-without-spoilers)**
 
 ---
 
@@ -11,7 +31,6 @@ Pydantic is widely used in modern Python projects such as FastAPI, data pipeline
 - Practice with one progressive exercise available in three levels of difficulty.
 - Discover how to structure clean and robust data models in Python projects.
 - Learn to integrate Pydantic with AI models for structured and validated data generation.
-
 
 
 ## Branch Organization
@@ -45,12 +64,22 @@ The `Structured Output` directory
 
 In this final stage, you will find a directory named `structured_output`. This directory contains a practical example demonstrating the advanced capabilities of Pydantic. It showcases how to generate and validate structured data, representing the culmination of techniques learned in previous stages.
 
-#### Key Components:
+#### Key Components :
 
 - **Directory**: `structured_output`
   - This directory includes files that illustrate the integration of Pydantic for structured data handling.
 
 - **Objective**: The goal of this stage is to provide a comprehensive example of how Pydantic can be utilized to ensure data integrity and structure, offering insights into the potential and versatility of Pydantic in real-world applications.
+
+#### Environment Setup for Structured Output :
+
+To enable structured data generation and see results in the `structured_output` section, you need to create a `.env` file at the root of the project and add your **OpenAI API key** as follows :
+
+```plaintext
+OPENAI_API_KEY=your_api_key_here
+```
+
+This step is optional if you only want to explore the structure and validation aspects without generating data from AI models.
 
 Additionally, there is a `tests` directory containing test files for each stage to validate your implementation:
 
@@ -60,12 +89,9 @@ Additionally, there is a `tests` directory containing test files for each stage 
 - `test_model_4.py`
 
 
-
 ## Setup
 
 You can complete this workshop in **two ways**:
-
----
 
 ### Option 1 — Local setup (with classic VS Code)
 
@@ -149,23 +175,19 @@ To access the **complete final solution**, refer to the `correction` branch, whi
 
 The structure is the same across all branches to ensure consistency in learning progression.
 
-### main branch
+To switch to a specific version of the workshop, run :
 
-`git checkout main`
+```bash
+git checkout <branch-name>
+```
 
-### hard branch
+Replace `<branch-name>` with one of the following :
 
-`git checkout hard`
-
-### intermediate branch
-
-`git checkout intermediate`
-
-### easy branch
-`git checkout easy`
-
-### Find the correction
-`git checkout correction`
+- `main`         → base structure  
+- `easy`         → simplified version  
+- `intermediate` → default level  
+- `hard`         → advanced version  
+- `correction`   → full solution 
 
 ---
 
