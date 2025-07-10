@@ -127,8 +127,7 @@ In this stage, you will enhance the existing classes by adding field validations
 ### File : [club.py](src/workshop_pydantic/model_3/club.py)
 
 8. **Modify the `Club` class**
-   - Add field validations and descriptions for the `name`, `members`, `partner_companies`, and `events` attributes.
-   - `name`: Ensure it has a minimum length of 2 and a maximum length of 100.
+   - Add field validations and descriptions for the `members`, `partner_companies`, and `events` attributes.
    - For `members`, `partner_companies`, and `events` to initialize them as empty lists.
 
 By adding these field validations and descriptions, you will ensure that the data in your models is well-defined and adheres to specific constraints, improving the robustness and clarity of your code.
@@ -160,7 +159,7 @@ In this stage, you will enhance the existing classes by adding custom validators
    - Add a model validator (mode="before") to ensure that the `start_time` is before the `end_time`.
    - Add a model validator (mode="after") to enforce specific rules for events:
      - Datathon events must have at least 10 registered attendees.
-     - Non-networking events must have at least one registrant.
+     - Non-conference events must have at least one registrant.
 
 ### File : [club.py](src/workshop_pydantic/model_4/club.py)
 
