@@ -3,9 +3,9 @@
 ![illustration](assets/logo_pydantic.jpg)
 
 ![Python](https://img.shields.io/badge/python-3.10+-blue)
+![License](https://img.shields.io/github/license/datacraft-paris/workshop-pydantic)
 ![Repo Size](https://img.shields.io/github/repo-size/datacraft-paris/workshop-pydantic)
 ![Last Commit](https://img.shields.io/github/last-commit/datacraft-paris/workshop-pydantic)
-![Contributors](https://img.shields.io/github/contributors/datacraft-paris/workshop-pydantic)
 
 
 
@@ -20,7 +20,6 @@ It also enables **structured data generation from AI models**, allowing you to t
 - **[Branch Organization](#branch-organization)**
 - **[Project Structure](#project-structure)**
 - **[Setup](#setup)**
-- **[Practical Session](#practical-session--build-and-validate-pydantic-models)**
 - **[Check Your Progress](#check-your-progress-without-spoilers)**
 
 ---
@@ -43,33 +42,64 @@ It also enables **structured data generation from AI models**, allowing you to t
 | `hard`         | Minimal guidance: only the exercise prompt is provided, for full autonomy. |
 | `correction`   | Full solution with explanations and good practices.                         |
 
-> Feel free to start with the `hard` branch if you're up for a challenge.
-> If it gets tricky, switch to `intermediate` or `easy` for progressive hints.
-> Don't forget to refer to the mini course in `main` — it covers all the key concepts you need.
+> Feel free to start with the `hard` branch if you're up for a challenge. If it gets tricky, switch to `intermediate` or `easy` for progressive hints. Don't forget to refer to the mini course in `main` — it covers all the key concepts you need.
+
 
 
 ## Project Structure
 
-The project is structured into four main directories, `model_1`, `model_2`, `model_3`, and `model_4`, each representing a stage in the exercise. Each directory contains the following files:
+This workshop is built around a single, progressive exercise divided into five stages, designed to suit learners of all levels. We recommend starting with the default branch `main` to go through the short tutorial and learn how Pydantic works. Once you're familiar with the basics, you can move on to the other branches depending on your desired challenge level.
 
-- `people.py`
-- `company.py`
-- `event.py`
-- `club.py`
-- `enums.py`
+Each branch (`easy`, `intermediate`, `hard`) includes :
 
-Each stage builds upon the previous one, adding complexity and new features. The `TODO.md` file at the root of the project contains the instructions for each stage.
+- **Four progressive model directories**:  
+  `model_1`, `model_2`, `model_3`, and `model_4`  
+  These stages must be completed in order, each building upon the previous one with added complexity and deeper validation logic.
 
-The `Structured Output` directory
+- **Standard file structure in each directory**:
+  - `people.py`
+  - `company.py`
+  - `event.py`
+  - `club.py`
+  - `enums.py`
 
-In this final stage, you will find a directory named `structured_output`. This directory contains a practical example demonstrating the advanced capabilities of Pydantic. It showcases how to generate and validate structured data, representing the culmination of techniques learned in previous stages.
+- **Structured Output (final stage)** :  
+  A dedicated `structured_output/` directory is included to demonstrate how Pydantic can be used to handle structured responses from LLMs.
 
-#### Key Components :
+- **Test coverage**:  
+  Each step has an associated test file in the `tests/` folder:
+  - `test_model_1.py`
+  - `test_model_2.py`
+  - `test_model_3.py`
+  - `test_model_4.py`
 
-- **Directory**: `structured_output`
-  - This directory includes files that illustrate the integration of Pydantic for structured data handling.
+- A `TODO.md` file at the root of the project provides instructions for each stage.
 
-- **Objective**: The goal of this stage is to provide a comprehensive example of how Pydantic can be utilized to ensure data integrity and structure, offering insights into the potential and versatility of Pydantic in real-world applications.
+The `correction` branch contains the complete final solution, including `model_4` and the `structured_output` directory.
+
+To switch between versions of the workshop :
+```bash
+git checkout <branch-name>
+```
+
+Replace `<branch-name>` with one of the following :
+
+- `main`         → base structure  
+- `easy`         → simplified version  
+- `intermediate` → default level  
+- `hard`         → advanced version  
+- `correction`   → full solution 
+
+---
+
+### Final Stage : Structured Output
+
+The `structured_output` directory showcases an advanced example of how Pydantic can be used to validate data returned from an AI model.
+
+#### Overview
+
+- **Purpose** : Demonstrate how to turn raw LLM output into structured, validated Python objects using Pydantic.  
+- **Scope** : Brings together everything covered in the previous steps and applies it in a real-world use case.
 
 #### Environment Setup for Structured Output :
 
@@ -81,21 +111,11 @@ OPENAI_API_KEY=your_api_key_here
 
 This step is optional if you only want to explore the structure and validation aspects without generating data from AI models.
 
-Additionally, there is a `tests` directory containing test files for each stage to validate your implementation:
-
-- `test_model_1.py`
-- `test_model_2.py`
-- `test_model_3.py`
-- `test_model_4.py`
-
-
 ## Setup
 
-You can complete this workshop in **two ways**:
+You can complete this workshop in **two ways** :
 
-### Option 1 — Local setup (with classic VS Code)
-
-If you're comfortable working locally, simply clone the repository and use `uv` to install dependencies.
+### Common Instructions
 
 Install `uv` (Python package manager with virtual environment support):
 
@@ -117,77 +137,26 @@ Finally, activate your environment using:
 source .venv/bin/activate
 ```
 
+### Option 1 — Local setup (with classic VS Code)
+
+If you're comfortable working locally, simply clone the repository and follow the common instructions above.
+
 ### Option 2 — Run in GitHub Codespaces (cloud)
 
 If you prefer not to set up anything locally, you can run everything directly in the browser via **GitHub Codespaces** — no installation required.
 
 1. Go to the repository on GitHub.
-2. **Select the branch you want to work.**
+2. **Select the branch you want to work on.**
 3. Click on the green **Code** button → "Create codespace on `Branch's name` " 
-4. In the terminal that opens in the Codespace, run the same commands as you would locally
+4. In the terminal that opens in the Codespace, follow the common instructions above.
 
 ![illustration](assets/capture_3.png)
 
-Install `uv` (Python package manager with virtual environment support) :
-
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
->If the uv installation fails or you're having trouble with your virtual environment, you can try running the workshop in the cloud using GitHub Codespaces instead.
-
-Then, run `uv sync` to install dependencies
-
-```bash
-uv sync
-```
-
-Finally, activate your environment using:
-
-```bash
-source .venv/bin/activate
-```
-
 **Important** : Codespaces are tied to the branch selected when you create them.
 If you want to switch branches later, go back to GitHub, select the new branch, and click on the + (plus) icon in the top right corner to create a new Codespace for that branch.
-You will then need to repeat the same terminal commands (`curl`,`uv sync`, ...) inside the new Codespace.
+You will then need to repeat the terminal commands inside the new Codespace.
 
 ![illustration](assets/capture_4.png)
-
-## Practical Session – Build and Validate Pydantic Models
-
-This workshop offers a single exercise available in five stages, tailored for learners of all backgrounds.
-
-We recommend starting with the default branch (`main`) to go through the short tutorial and learn how Pydantic works.
-
-Once you're familiar with the basics, you can move on to the other branches depending on your desired challenge level.
-
-Each branch (`easy`, `intermediate`, `hard`) contains:
-
-- Four sequential model directories: `model_1`, `model_2`, `model_3`, and `model_4`.
-  These represent progressive steps of the exercise and must be completed in order.
-  Each directory builds upon the previous one — serving both as a **partial correction** and a **new step** that adds complexity.
-- A final directory `structured_output` that demonstrates advanced usage of Pydantic for generating and validating structured data, showcasing the culmination of techniques learned in previous stages.
-- Four corresponding test files located in the `tests/` folder: `test_model_1.py`, `test_model_2.py`, etc.
-  Each test file is dedicated to checking the behavior of its associated model step.
-
-To access the **complete final solution**, refer to the `correction` branch, which provides the full version of `model_4` and the `structured_output`.
-
-The structure is the same across all branches to ensure consistency in learning progression.
-
-To switch to a specific version of the workshop, run :
-
-```bash
-git checkout <branch-name>
-```
-
-Replace `<branch-name>` with one of the following :
-
-- `main`         → base structure  
-- `easy`         → simplified version  
-- `intermediate` → default level  
-- `hard`         → advanced version  
-- `correction`   → full solution 
 
 ---
 
